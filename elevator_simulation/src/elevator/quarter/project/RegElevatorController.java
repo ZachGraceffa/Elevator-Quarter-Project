@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -24,6 +25,12 @@ public class RegElevatorController implements ElevatorController, Lift
             }
             return instance;
         }
+    }
+    
+    @Override
+    public void request(Floor aFloor, int direction)
+    {
+        
     }
     
     /*/**

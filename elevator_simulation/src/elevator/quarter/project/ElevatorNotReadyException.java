@@ -8,10 +8,11 @@ package elevator.quarter.project;
  *
  * @author Craig
  */
-class OverCapacityException extends Exception
-{
-    public OverCapacityException(String message)
+class ElevatorNotReadyException extends Exception {
+
+    public ElevatorNotReadyException(String message)
     {
         super(message);
     }
+    
 }

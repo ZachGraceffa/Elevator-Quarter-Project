@@ -4,40 +4,70 @@
  */
 package elevator.quarter.project;
 
+import java.util.ArrayList;
+
 /**
- *
+ * 
  * @author Craig
  */
-public class RegElevator implements Elevator
+public class RegElevator implements Elevator, Lift
 {
     //current floor & queue information
-    private Floor currentFloor;
+    private int currentFloor;
     private ArrayList<Floor> destinations;
-    private int doorState;
-     
+    private static int elevatorNumberCounter = 0;
+    private int elevatorID;
+    
     //people currently on the elevator
     private ArrayList<Movable> movablesOnElevator;
     
     //other elevator components
-    private int state;
-    private FloorPanel elevatorFloorPanel;    
     
-    @Override
-    public int move(Floor floorIn)
+    private FloorPanel elevatorFloorPanel;
+    
+    //state variables
+    private Door doorState;
+    private ElevatorState elevatorState;
+    
+    //time values
+    private final int timeBetweenFloors = 1000;
+    private final int doorOpenCloseTime = 250;
+    private final int doorStaysOpenTime = 1000;
+    
+    public void Elevator()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        doorState = Door.CLOSED;
+        movablesOnElevator = new ArrayList<Movable>();
+        destinations = new ArrayList<Floor>();
+        elevatorState = ElevatorState.IDLE;
+        elevatorID = elevatorNumberCounter;
+        elevatorNumberCounter++;
+        currentFloor = 0;
     }
 
     @Override
-    public int doorOpen()
+    public void move(Floor floorIn) throws ElevatorNotReadyException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(doorState == Door.OPEN)
+        {
+            
+        }
+        else
+        {
+            throw new ElevatorNotReadyException("This elevator's doors are closed and cannot accept movables.");
+        }
     }
 
     @Override
-    public int doorClose()
+    public void doorOpen()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        doorState = Door.OPEN;
+    }
+
+    @Override
+    public void doorClose()
+    {
+        doorState = Door.CLOSED;
     }
     
     /**
@@ -48,7 +78,7 @@ public class RegElevator implements Elevator
     @Override
     public void entryRequest(Movable movableIn) throws OverCapacityException
     {
-        if(movablesOnElevator.count < ELEVATOR_CAPACITY)
+        if(movablesOnElevator.size() < ELEVATOR_CAPACITY)
         {
             if(movableIn.getCurrentFloor().equals(this.currentFloor))
             {
@@ -56,12 +86,12 @@ public class RegElevator implements Elevator
             }
             else
             {
-                throw new Movable
+                throw new MovableNotAvailableException("The requested movable is not on the same floor as the elevator.");
             }
         }
         else
         {
-            throw new OverCapacityException();
+            throw new OverCapacityException("This elevator cannot accept any more movables.");
         }
         
     }
@@ -88,7 +118,7 @@ public class RegElevator implements Elevator
      */
     private void removeMovable(Movable movableIn)
     {
-        movablesOnElevator.delete(movableIn);
+        movablesOnElevator.remove(movableIn);
         currentFloor.getMovablesOnFloor().add(movableIn);
     }
-}
+    }

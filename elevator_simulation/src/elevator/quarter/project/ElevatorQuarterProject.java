@@ -15,7 +15,7 @@ public class ElevatorQuarterProject {
      */
     public static void main(String[] args)
     {
-        Building b1 = Building.getInstance();        
+        Building b1 = (Building) RegBuilding.getInstance();
                 
     }
 }

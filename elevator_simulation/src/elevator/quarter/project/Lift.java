@@ -8,10 +8,8 @@ package elevator.quarter.project;
  *
  * @author Craig
  */
-class OverCapacityException extends Exception
+interface Lift
 {
-    public OverCapacityException(String message)
-    {
-        super(message);
-    }
+    enum ElevatorState { GOING_UP, GOING_DOWN, IDLE };
+    enum Door { OPEN, CLOSED };	
 }

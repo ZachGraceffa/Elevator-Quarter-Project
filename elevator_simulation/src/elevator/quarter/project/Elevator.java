@@ -12,9 +12,9 @@ public interface Elevator
 {
     int ELEVATOR_CAPACITY = 20;
     
-    public int move(Floor floorIn);
-    public int doorOpen();
-    public int doorClose();
+    public void move(Floor floorIn) throws ElevatorNotReadyException;
+    public void doorOpen();
+    public void doorClose();
     public void entryRequest(Movable movableIn) throws OverCapacityException;
     public void removalRequest(Movable movableIn) throws OverCapacityException;
 }
