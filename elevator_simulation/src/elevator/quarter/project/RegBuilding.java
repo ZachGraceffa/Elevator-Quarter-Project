@@ -60,7 +60,7 @@ public class RegBuilding implements Building
                 
         for(int i = 0; i < movableCount; i++)
         {
-            movablesInBuilding.add(new Person());
+            movablesInBuilding.add(new RegPerson());
         }
         
     }
@@ -79,7 +79,7 @@ public class RegBuilding implements Building
                 
         for(int i = 0; i < movableCountIn; i++)
         {
-            movablesInBuilding.add(new Person());
+            movablesInBuilding.add(new RegPerson());
         }
         
         

@@ -90,7 +90,7 @@ public class RegElevator implements Elevator, Lift
     {
         if(movablesOnElevator.size() < ELEVATOR_CAPACITY)
         {
-            if(movableIn.getCurrentFloor().equals(this.currentFloor))
+            if(movableIn.getCurrentFloor() == this.currentFloor)
             {
                 
             }
