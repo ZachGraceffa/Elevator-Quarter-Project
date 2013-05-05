@@ -65,9 +65,9 @@ public class RegElevatorController implements ElevatorController, Lift
      */
     public void request(Floor floorIn, Elevator elevatorIn)
     {   
-        if(elevatorIn.getCurrentFloor() < floorIn.getID())
+        if(elevatorIn.getCurrentFloor() < floorIn.getElevatorID())
             sendElevatorUp(floorIn, elevatorIn);
-        else if(elevatorIn.getCurrentFloor() > floorIn.getID())
+        else if(elevatorIn.getCurrentFloor() > floorIn.getElevatorID())
             sendElevatorDown(floorIn, elevatorIn);
         
             

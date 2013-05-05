@@ -10,7 +10,7 @@ import java.util.*;
  * 
  * @author Craig Brott
  */
-public class RegBuilding
+public class RegBuilding implements Building
 {
     //controller
     private ElevatorController controller;
@@ -20,42 +20,64 @@ public class RegBuilding
     private ArrayList<Movable> movablesInBuilding;
     private ArrayList<Elevator> elevators;
     
-    //counters
-    private int numOfFloors;
-    private int numOfElevators;
-    private int numOfMovables;
-    
     //for use as the universal time in building across all floors
     private Timer universalTime;
     
     //creates a reference to the one singleton instance.
     private static RegBuilding instance = null;
     
+    public int getFloorCount()
+    {
+        return floors.size();
+    }
+    
+    public int getElevatorCount()
+    {
+        return floors.size();
+    }
+    
+    public int getMovableCount()
+    {
+        return movablesInBuilding.size();
+    }
+    
     //default constructor creates a building with 2 floors, 1 elevator, and 1 movable.
     private RegBuilding()
     {
-        numOfFloors = 2;
-        numOfElevators = 1;
-        numOfMovables = 2;
-    }
-    
-    private RegBuilding(int numOfElevatorsIn, int numOfFloorsIn, int numOfMovablesIn)
-    {
-        numOfFloors = numOfFloorsIn;
-        numOfElevators = numOfElevatorsIn;
-        numOfMovables = numOfMovablesIn;
+        int floorCount = 2;
+        int elevatorCount = 1;
+        int movableCount = 1;
         
-        for(int i = 0; i < numOfFloors; i++)
+        for(int i = 0; i < floorCount; i++)
         {
             floors.add(new RegFloor());
         }
         
-        for(int i = 0; i < numOfElevators; i++)
+        for(int i = 0; i < elevatorCount; i++)
         {
             elevators.add(new RegElevator());
         }
                 
-        for(int i = 0; i < numOfMovables; i++)
+        for(int i = 0; i < movableCount; i++)
+        {
+            movablesInBuilding.add(new Person());
+        }
+        
+    }
+    
+    private RegBuilding(int elevatorCountIn, int floorCountIn, int movableCountIn)
+    {
+        for(int i = 0; i < floorCountIn; i++)
+        {
+            floors.add(new RegFloor());
+        }
+        
+        for(int i = 0; i < elevatorCountIn; i++)
+        {
+            elevators.add(new RegElevator());
+        }
+                
+        for(int i = 0; i < movableCountIn; i++)
         {
             movablesInBuilding.add(new Person());
         }

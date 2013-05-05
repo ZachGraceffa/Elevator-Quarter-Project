@@ -5,7 +5,8 @@ package elevator.quarter.project;
  * @author ZGraceffa
  */
 
-public class RegCallBox implements CallBox{
+public class RegCallBox implements CallBox
+{
     
     //final int floorLevel;
     

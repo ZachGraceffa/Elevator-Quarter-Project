@@ -44,7 +44,17 @@ public class RegElevator implements Elevator, Lift
         elevatorNumberCounter++;
         currentFloor = 0;
     }
-
+    
+    public int getElevatorID()
+    {
+        return elevatorID;
+    }
+    
+    public int getCurrentFloor()
+    {
+        return currentFloor;
+    }
+    
     @Override
     public void move(Floor floorIn) throws ElevatorNotReadyException
     {

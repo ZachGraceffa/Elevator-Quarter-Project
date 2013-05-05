@@ -15,7 +15,8 @@ public class ElevatorQuarterProject {
      */
     public static void main(String[] args)
     {
-        Building b1 = (Building) RegBuilding.getInstance();
-                
+        Building b1 = RegBuilding.getInstance();
+        
+        //System.out.println(b1.getInstance().getFloorCount());
     }
 }

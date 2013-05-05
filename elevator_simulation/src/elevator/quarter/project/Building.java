@@ -13,5 +13,5 @@ public interface Building {
      *
      * @return
      */
-    public Building getInstance();
+    
 }

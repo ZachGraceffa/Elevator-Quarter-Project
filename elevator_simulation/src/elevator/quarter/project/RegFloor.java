@@ -25,7 +25,7 @@ public class RegFloor implements Floor{
     void RegFloor(){
         //upWaitList = new Queue<>(); //abstract queue no allowed, arraydequeue or arrayqueue?
         //downWaitList = new Queue<>();
-        movablesOnFloor = new ArrayList<>();
+        movablesOnFloor = new ArrayList<Movable>();
         aRegCallBox = new RegCallBox();
     }
     
@@ -41,7 +41,9 @@ public class RegFloor implements Floor{
          */
         upWaitList.add(up);
         if(aRegCallBox.seeUpButtonState())
+        {
             aRegCallBox.upButton();
+        }
     }
     
     /**
@@ -59,7 +61,9 @@ public class RegFloor implements Floor{
         */
         downWaitList.add(down);
         if(aRegCallBox.seeDownButtonState())
+        {
             aRegCallBox.downButton();
+        }
     }
     
     /**
@@ -73,7 +77,9 @@ public class RegFloor implements Floor{
             return forUpElevator;
         }
         else
+        {
             throw new UnsupportedOperationException("Not supported yet.");
+        }
     }
     
     /**
@@ -87,7 +93,9 @@ public class RegFloor implements Floor{
             return forDownElevator;
         }
         else 
+        {
             throw new UnsupportedOperationException("Not supported yet.");
+        }
     }
     
 }
