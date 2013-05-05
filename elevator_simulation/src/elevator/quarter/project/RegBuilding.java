@@ -26,23 +26,8 @@ public class RegBuilding implements Building
     //creates a reference to the one singleton instance.
     private static RegBuilding instance = null;
     
-    public int getFloorCount()
-    {
-        return floors.size();
-    }
-    
-    public int getElevatorCount()
-    {
-        return floors.size();
-    }
-    
-    public int getMovableCount()
-    {
-        return movablesInBuilding.size();
-    }
-    
     //default constructor creates a building with 2 floors, 1 elevator, and 1 movable.
-    private RegBuilding()
+    private void RegBuilding()
     {
         int floorCount = 2;
         int elevatorCount = 1;
@@ -63,9 +48,10 @@ public class RegBuilding implements Building
             movablesInBuilding.add(new RegPerson());
         }
         
+        controller = RegElevatorController.getInstance();
     }
     
-    private RegBuilding(int elevatorCountIn, int floorCountIn, int movableCountIn)
+    private void RegBuilding(int elevatorCountIn, int floorCountIn, int movableCountIn)
     {
         for(int i = 0; i < floorCountIn; i++)
         {
@@ -82,18 +68,7 @@ public class RegBuilding implements Building
             movablesInBuilding.add(new RegPerson());
         }
         
-        
-        //construct elevator controller
-        
-        /*
-         * takes the following:
-         * # of elevators
-         * # of movables to start out initially
-         * # of floors
-         * responsible for constructing the elevator controller
-         * building is a singleton
-         * elevator controller is a singleton
-         */
+        controller = RegElevatorController.getInstance();
     }
     
     public static RegBuilding getInstance()
@@ -109,5 +84,21 @@ public class RegBuilding implements Building
             }
         }
         return instance;
-    }              
+    }
+    
+    //accessors
+    public int getFloorCount()
+    {
+        return floors.size();
+    }
+    
+    public int getElevatorCount()
+    {
+        return floors.size();
+    }
+    
+    public int getMovableCount()
+    {
+        return movablesInBuilding.size();
+    }
 }

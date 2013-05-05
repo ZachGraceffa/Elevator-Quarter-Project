@@ -15,16 +15,24 @@ public class RegElevatorController implements ElevatorController, Lift
     private ArrayList<Elevator> elevators;
     private static RegElevatorController instance = null;
     
-    private ElevatorController RegElevatorController()
+    private void RegElevatorController()
     {
-        synchronized(ElevatorController.class)
+
+    }
+    
+    public static RegElevatorController getInstance()
+    {
+        if(instance == null)
         {
-            if(instance == null)
+            synchronized(ElevatorController.class)
             {
-                instance = new RegElevatorController();
+                if(instance == null)
+                {
+                    instance = new RegElevatorController();
+                }
             }
-            return instance;
         }
+        return instance;
     }
     
     @Override

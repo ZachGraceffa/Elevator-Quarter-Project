@@ -10,9 +10,6 @@ public class RegCallBox implements CallBox
     
     //final int floorLevel;
     
-    
-    
-    
     private boolean upButtonPressed = false; 
     private boolean downButtonPressed = false; 
     

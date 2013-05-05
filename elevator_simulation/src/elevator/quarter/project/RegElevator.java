@@ -90,13 +90,13 @@ public class RegElevator implements Elevator, Lift
     {
         if(movablesOnElevator.size() < ELEVATOR_CAPACITY)
         {
-            if(movableIn.getCurrentFloor() == this.currentFloor)
+            if(((RegPerson)movableIn).getCurrentFloor() == this.currentFloor)
             {
                 
             }
             else
             {
-                throw new MovableNotAvailableException("The requested movable is not on the same floor as the elevator.");
+                //throw new MovableNotAvailableException("The requested movable is not on the same floor as the elevator.");
             }
         }
         else
@@ -118,7 +118,8 @@ public class RegElevator implements Elevator, Lift
      */
     private void addMovable(Movable movableIn)
     {
-        movableIn.getCurrentFloor().getMovablesOnFloor().delete(movableIn);
+        //error involves converting between int/ floor types. ALSO: why do i have to cast everything???
+        ((RegPerson)movableIn).getCurrentFloor().getMovablesOnFloor().delete(movableIn);
         movablesOnElevator.add(movableIn);
     }
     
