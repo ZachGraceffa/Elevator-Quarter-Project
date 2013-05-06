@@ -22,6 +22,9 @@ public class RegFloor implements Floor{
     //Callbox object for floor
     private CallBox aRegCallBox;
     
+    private static int floorIDCounter;
+    private int floorID;
+    
     void RegFloor(){
         //upWaitList = new Queue<>(); //abstract queue no allowed, arraydequeue or arrayqueue?
         //downWaitList = new Queue<>();
