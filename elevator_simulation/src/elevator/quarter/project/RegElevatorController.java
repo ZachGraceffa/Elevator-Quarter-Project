@@ -93,7 +93,7 @@ public class RegElevatorController implements ElevatorController, Lift
      * @param whichFloor
      * @param whichElevator 
      */
-    private void sendElevatorUp(Floor whichFloor, Elevator whichElevator)//will change direction to enumerstor eventually
+    private void sendElevatorUp(Floor whichFloor, Elevator whichElevator)
     {
         //if elevator is already headed in correct direction hasn't passed desired floor, simply add floor to destination list.
         
@@ -105,8 +105,8 @@ public class RegElevatorController implements ElevatorController, Lift
      * @param whichFloor
      * @param whichElevator 
      */
-    private void sendElevatorDown(Floor whichFloor, Elevator whichElevator)//will change direction to enumerstor eventually
+    private void sendElevatorDown(Floor whichFloor, Elevator whichElevator)
     {
-    
+        
     }
 }

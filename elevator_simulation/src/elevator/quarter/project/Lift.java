@@ -11,5 +11,5 @@ package elevator.quarter.project;
 interface Lift
 {
     enum ElevatorState { GOING_UP, GOING_DOWN, IDLE };
-    enum Door { OPEN, CLOSED };	
+    enum Door { OPEN, CLOSED };
 }

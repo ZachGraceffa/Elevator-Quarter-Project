@@ -8,11 +8,8 @@ package elevator.quarter.project;
  *
  * @author Craig
  */
-public interface Building {
-    /**
-     *
-     * @return
-     */
-    
+public interface Building
+{
+
     public Floor getFloorWithIndex(int floorIndexIn);
 }

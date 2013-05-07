@@ -44,7 +44,7 @@ public class RegElevator implements Elevator, Lift
         elevatorIDCounter++;
         
         //start all elevators at the first floor
-        currentFloor = ((RegBuilding)Building).getInstance().getFloorWithIndex(0);
+        currentFloor = RegBuilding.getInstance().getFloorWithIndex(0);
     }
     
     public int getElevatorID()
@@ -70,17 +70,19 @@ public class RegElevator implements Elevator, Lift
             throw new ElevatorNotReadyException("This elevator's doors are closed and cannot accept movables.");
         }
     }
-
+    
     @Override
     public void doorOpen()
     {
         doorState = Door.OPEN;
+        System.out.println("Doors open.");
     }
 
     @Override
     public void doorClose()
     {
         doorState = Door.CLOSED;
+        System.out.println("Doors closed.");
     }
     
     /**
@@ -124,7 +126,8 @@ public class RegElevator implements Elevator, Lift
     private void addMovable(Movable movableIn)
     {
         //error involves converting between int/ floor types. ALSO: why do i have to cast everything???
-        ((RegPerson)movableIn).getCurrentFloor().getMovablesOnFloor().delete(movableIn);
+        
+        //movableIn.getCurrentFloor().getMovablesOnFloor().delete(movableIn);
         movablesOnElevator.add(movableIn);
     }
     
@@ -135,7 +138,7 @@ public class RegElevator implements Elevator, Lift
     private void removeMovable(Movable movableIn)
     {
         movablesOnElevator.remove(movableIn);
-        currentFloor.getMovablesOnFloor().add(movableIn);
+        //currentFloor.getMovablesOnFloor().add(movableIn);
     }
 
 }

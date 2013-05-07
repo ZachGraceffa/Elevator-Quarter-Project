@@ -9,7 +9,8 @@ package elevator.quarter.project;
  * have their corresponding button disabled.
  * @author ZGraceffa
  */
-public interface CallBox {
+public interface CallBox
+{
     public void upButton();
     public void downButton();
     //public void setFloor(int floorLevel){};
