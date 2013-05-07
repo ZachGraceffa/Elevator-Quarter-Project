@@ -38,18 +38,11 @@ public class RegBuilding implements Building
         int movableCount = 1;
         
         floors = new ArrayList<Floor>();
-        elevators = new ArrayList<Elevator>();
         movablesInBuilding = new ArrayList<Movable>();
-        
         
         for(int i = 0; i < floorCount; i++)
         {
             floors.add(new RegFloor());
-        }
-        
-        for(int i = 0; i < elevatorCount; i++)
-        {
-            elevators.add(new RegElevator());
         }
         
         //leave out the movable code for now
@@ -59,7 +52,7 @@ public class RegBuilding implements Building
             movablesInBuilding.add(new RegPerson());
         }
         */
-        
+
         controller = RegElevatorController.getInstance();
         
         System.out.println("Building created, " + floorCount + " Floors, " + elevatorCount + " Elevators.");
@@ -97,6 +90,7 @@ public class RegBuilding implements Building
             {
                 if(instance == null)
                 {
+                    //System.out.println("OK");
                     instance = new RegBuilding();
                 }
             }

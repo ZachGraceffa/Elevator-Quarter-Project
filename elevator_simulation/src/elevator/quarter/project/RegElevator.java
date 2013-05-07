@@ -72,6 +72,19 @@ public class RegElevator implements Elevator, Lift
     }
     
     /**
+     * Part of workaround that says the elevator's initial floor can be set only once with this method.
+     * @param floorIn 
+     */
+    @Override
+    public void initiallySetCurrentFloor()
+    {
+        if(currentFloor == null)
+        {
+            currentFloor = RegBuilding.getInstance().getFloorWithIndex(0);
+        }
+    }
+    
+    /**
      * This method adds a new floor request to either the upward-bound or downward-bound destination list.
      * @param floorIn 
      */

@@ -21,5 +21,8 @@ public interface Elevator
     //accessors
     public int getElevatorID();
     public Floor getCurrentFloor();
+    
+    //mutators
+    public void initiallySetCurrentFloor();
 }
 

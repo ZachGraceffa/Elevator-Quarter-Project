@@ -15,9 +15,19 @@ public class RegElevatorController implements ElevatorController, Lift
     private ArrayList<Elevator> elevators;
     private static RegElevatorController instance = null;
     
+    /**
+     * Default constructor creates an elevator controller with 6 elevators.
+     */
     private RegElevatorController()
     {
+        elevators = new ArrayList<Elevator>();
         
+        int elevatorCount = 6;
+        
+        for(int i = 0; i < elevatorCount; i++)
+        {
+            elevators.add(new RegElevator());
+        }
     }
     
     /**
@@ -37,6 +47,18 @@ public class RegElevatorController implements ElevatorController, Lift
             }
         }
         return instance;
+    }
+    
+    /**
+     * Part of elevator initialization workaround. Other solutions welcome - This method initializes all elevators to the first floor by delegating the function to the elevator's initiallySetCurrentFloor() method.
+     */
+    @Override
+    public void initializeElevators()
+    {
+        for(int i = 0; i < elevators.size(); i++)
+        {
+            elevators.get(i).initiallySetCurrentFloor();
+        }
     }
     
     /*/**
@@ -69,12 +91,10 @@ public class RegElevatorController implements ElevatorController, Lift
      * @param elevatorIn 
      */
     @Override
-    public void request(Floor floorIn, Elevator elevatorIn)
+    public void request(Elevator elevatorIn, Floor floorIn)
     {
         elevatorIn.addFloorToDestList(floorIn);
-        
-        
-        
+
         /*
         //if the elevator is currently on the requested floor, ignore.
         if(elevatorIn.getCurrentFloor().getFloorID() == floorIn.getFloorID())
@@ -94,6 +114,25 @@ public class RegElevatorController implements ElevatorController, Lift
         }
         */
     }
+    
+    /**
+     * This is a simplified method designed to work with the driver main method for assignment 2. The final implementation will not use integers for parameters and will not be accessible to the main method. This is for the purposes of assignment 2 only.
+     * @param floorIn
+     * @param elevatorIn 
+     */
+    @Override
+    public void request(int elevatorIn, int floorIn)
+    {
+        //this line looks scary, but it just adds the requested floor to the requested elevator's destination list.
+        elevators.get(floorIn).addFloorToDestList(RegBuilding.getInstance().getFloorWithIndex(floorIn)); 
+    }
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * 

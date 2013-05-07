@@ -15,10 +15,10 @@ public class ElevatorQuarterProject {
      */
     public static void main(String[] args)
     {
-        Building b1 = RegBuilding.getInstance();
+        //initialize the building
+        RegBuilding.getInstance();
+        RegElevatorController.getInstance().initializeElevators();
         
-        System.out.println(RegBuilding.getInstance());
-        
-        
+        RegElevatorController.getInstance().request(2, 4);
     }
 }
