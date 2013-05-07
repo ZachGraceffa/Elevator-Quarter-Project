@@ -87,6 +87,7 @@ public class RegBuilding implements Building
     }
     
     //accessors
+    
     public int getFloorCount()
     {
         return floors.size();
@@ -97,8 +98,15 @@ public class RegBuilding implements Building
         return floors.size();
     }
     
+    
     public int getMovableCount()
     {
         return movablesInBuilding.size();
+    }
+
+    @Override
+    public Floor getFloorWithIndex(int floorIndexIn)
+    {
+        return floors.get(floorIndexIn);
     }
 }

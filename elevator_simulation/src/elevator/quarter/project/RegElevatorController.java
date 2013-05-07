@@ -17,9 +17,13 @@ public class RegElevatorController implements ElevatorController, Lift
     
     private void RegElevatorController()
     {
-
+        
     }
     
+    /**
+     * This is the singleton getInstance() method that returns the only instance of RegElevatorController or creates it if it does not yet exist.
+     * @return 
+     */
     public static RegElevatorController getInstance()
     {
         if(instance == null)
@@ -33,12 +37,6 @@ public class RegElevatorController implements ElevatorController, Lift
             }
         }
         return instance;
-    }
-    
-    @Override
-    public void request(Floor aFloor, int direction)
-    {
-        
     }
     
     /*/**
@@ -64,27 +62,49 @@ public class RegElevatorController implements ElevatorController, Lift
         }
         
     }*/
+    
     /**
-     * Simple ElevatorController method that does not intelligently choose 
-     * elevator.
+     * Simple ElevatorController method that does not intelligently choose which elevator to send. This function is for part 2 of the project only.
      * @param floorIn
-     * @param elevatorIn
-     * @param direction 
+     * @param elevatorIn 
      */
+    @Override
     public void request(Floor floorIn, Elevator elevatorIn)
-    {   
-        if(elevatorIn.getCurrentFloor() < floorIn.getElevatorID())
+    {
+        //if the elevator is currently on the requested floor, ignore.
+        if(elevatorIn.getCurrentFloor().getFloorID() == floorIn.getFloorID())
+        {
+            //do nothing
+        }
+        //if the elevator is below the requested floor, send the elevator up
+        else if(elevatorIn.getCurrentFloor().getFloorID() < floorIn.getFloorID())
+        {
             sendElevatorUp(floorIn, elevatorIn);
-        else if(elevatorIn.getCurrentFloor() > floorIn.getElevatorID())
+        }        
+        //if the elevator is above the requested floor, send the elevator down
+        else if(elevatorIn.getCurrentFloor().getFloorID() > floorIn.getFloorID())
+        {
             sendElevatorDown(floorIn, elevatorIn);
-        
-            
+        }
     }
     
+    /**
+     * 
+     * @param whichFloor
+     * @param whichElevator 
+     */
     private void sendElevatorUp(Floor whichFloor, Elevator whichElevator)//will change direction to enumerstor eventually
     {
         //if elevator is already headed in correct direction hasn't passed desired floor, simply add floor to destination list.
+        
+        
     }
+
+    /**
+     * 
+     * @param whichFloor
+     * @param whichElevator 
+     */
     private void sendElevatorDown(Floor whichFloor, Elevator whichElevator)//will change direction to enumerstor eventually
     {
     

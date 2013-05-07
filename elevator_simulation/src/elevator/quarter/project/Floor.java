@@ -6,5 +6,5 @@ package elevator.quarter.project;
  */
 public interface Floor
 {
-    
+    public int getFloorID();
 }

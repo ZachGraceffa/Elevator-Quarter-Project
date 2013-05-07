@@ -101,4 +101,11 @@ public class RegFloor implements Floor{
         }
     }
     
+    //accessors
+    @Override
+    public int getFloorID()
+    {
+        return floorID;
+    }
+    
 }

@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class RegElevator implements Elevator, Lift
 {
     //current floor & queue information
-    private int currentFloor;
+    private Floor currentFloor;
     private ArrayList<Floor> destinations;
-    private static int elevatorNumberCounter = 0;
+    private static int elevatorIDCounter = 0;
     private int elevatorID;
     
     //people currently on the elevator
@@ -40,9 +40,11 @@ public class RegElevator implements Elevator, Lift
         movablesOnElevator = new ArrayList<Movable>();
         destinations = new ArrayList<Floor>();
         elevatorState = ElevatorState.IDLE;
-        elevatorID = elevatorNumberCounter;
-        elevatorNumberCounter++;
-        currentFloor = 0;
+        elevatorID = elevatorIDCounter;
+        elevatorIDCounter++;
+        
+        //start all elevators at the first floor
+        currentFloor = ((RegBuilding)Building).getInstance().getFloorWithIndex(0);
     }
     
     public int getElevatorID()
@@ -50,7 +52,8 @@ public class RegElevator implements Elevator, Lift
         return elevatorID;
     }
     
-    public int getCurrentFloor()
+    @Override
+    public Floor getCurrentFloor()
     {
         return currentFloor;
     }
@@ -88,9 +91,10 @@ public class RegElevator implements Elevator, Lift
     @Override
     public void entryRequest(Movable movableIn) throws OverCapacityException
     {
+        /*
         if(movablesOnElevator.size() < ELEVATOR_CAPACITY)
         {
-            if(((RegPerson)movableIn).getCurrentFloor() == this.currentFloor)
+            if(((RegPerson)movableIn).getCurrentFloor().getFloorID() == this.currentFloor)
             {
                 
             }
@@ -103,6 +107,7 @@ public class RegElevator implements Elevator, Lift
         {
             throw new OverCapacityException("This elevator cannot accept any more movables.");
         }
+        * */
         
     }
 
@@ -132,4 +137,5 @@ public class RegElevator implements Elevator, Lift
         movablesOnElevator.remove(movableIn);
         currentFloor.getMovablesOnFloor().add(movableIn);
     }
-    }
+
+}

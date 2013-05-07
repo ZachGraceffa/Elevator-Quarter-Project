@@ -14,4 +14,5 @@ public interface Building {
      * @return
      */
     
+    public Floor getFloorWithIndex(int floorIndexIn);
 }

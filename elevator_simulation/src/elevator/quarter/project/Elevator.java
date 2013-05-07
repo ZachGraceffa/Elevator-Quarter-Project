@@ -17,5 +17,8 @@ public interface Elevator
     public void doorClose();
     public void entryRequest(Movable movableIn) throws OverCapacityException;
     public void removalRequest(Movable movableIn) throws OverCapacityException;
+    
+    //accessors
+    public Floor getCurrentFloor();
 }
 
