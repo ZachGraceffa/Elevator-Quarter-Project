@@ -25,11 +25,12 @@ public class RegFloor implements Floor{
     private static int floorIDCounter;
     private int floorID;
     
-    void RegFloor(){
+    public RegFloor()
+    {
         //upWaitList = new Queue<>(); //abstract queue no allowed, arraydequeue or arrayqueue?
         //downWaitList = new Queue<>();
-        movablesOnFloor = new ArrayList<Movable>();
-        aRegCallBox = new RegCallBox();
+        //movablesOnFloor = new ArrayList<Movable>();
+        //aRegCallBox = new RegCallBox();
     }
     
     /**

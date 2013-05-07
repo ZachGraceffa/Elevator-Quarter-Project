@@ -15,7 +15,7 @@ public class RegElevatorController implements ElevatorController, Lift
     private ArrayList<Elevator> elevators;
     private static RegElevatorController instance = null;
     
-    private void RegElevatorController()
+    private RegElevatorController()
     {
         
     }
@@ -71,10 +71,16 @@ public class RegElevatorController implements ElevatorController, Lift
     @Override
     public void request(Floor floorIn, Elevator elevatorIn)
     {
+        elevatorIn.addFloorToDestList(floorIn);
+        
+        
+        
+        /*
         //if the elevator is currently on the requested floor, ignore.
         if(elevatorIn.getCurrentFloor().getFloorID() == floorIn.getFloorID())
         {
-            //do nothing
+            System.out.println("The requested elevator is already on the requested floor. Doors opening.");
+            elevatorIn.doorOpen();
         }
         //if the elevator is below the requested floor, send the elevator up
         else if(elevatorIn.getCurrentFloor().getFloorID() < floorIn.getFloorID())
@@ -86,6 +92,7 @@ public class RegElevatorController implements ElevatorController, Lift
         {
             sendElevatorDown(floorIn, elevatorIn);
         }
+        */
     }
     
     /**

@@ -14,8 +14,9 @@ public class RegElevator implements Elevator, Lift
 {
     //current floor & queue information
     private Floor currentFloor;
-    private ArrayList<Floor> destinations;
-    private static int elevatorIDCounter = 0;
+    private ArrayList<Floor> downDestinations;
+    private ArrayList<Floor> upDestinations;
+    private static int elevatorIDCounter = 1;
     private int elevatorID;
     
     //people currently on the elevator
@@ -34,56 +35,96 @@ public class RegElevator implements Elevator, Lift
     private final int doorOpenCloseTime = 250;
     private final int doorStaysOpenTime = 1000;
     
-    public void Elevator()
+    public RegElevator()
     {
         doorState = Door.CLOSED;
-        movablesOnElevator = new ArrayList<Movable>();
-        destinations = new ArrayList<Floor>();
         elevatorState = ElevatorState.IDLE;
+        movablesOnElevator = new ArrayList<Movable>();
+        upDestinations = new ArrayList<Floor>();
+        downDestinations = new ArrayList<Floor>();
         elevatorID = elevatorIDCounter;
         elevatorIDCounter++;
         
         //start all elevators at the first floor
-        currentFloor = RegBuilding.getInstance().getFloorWithIndex(0);
+        //ALERT: this can't be in the constructor because it causes an infinite loop of calling the getInstance on a building that is trying to create itself but isn't quite done yet.
+        //currentFloor = RegBuilding.getInstance().getFloorWithIndex(0);
     }
     
+    //accessors
+    /**
+     * accessor for elevatorID
+     * @return 
+     */
+    @Override
     public int getElevatorID()
     {
         return elevatorID;
     }
     
+    /**
+     * accessor for currentFloor
+     * @return 
+     */
     @Override
     public Floor getCurrentFloor()
     {
         return currentFloor;
     }
     
+    /**
+     * This method adds a new floor request to either the upward-bound or downward-bound destination list.
+     * @param floorIn 
+     */
     @Override
-    public void move(Floor floorIn) throws ElevatorNotReadyException
+    public void addFloorToDestList(Floor floorIn)
     {
-        if(doorState == Door.OPEN)
+        //if the elevator is on the same floor as the floor in request, open the doors and remain idle. otherwise, add it to the proper up/down destination list.
+        if(currentFloor.getFloorID() == floorIn.getFloorID())
         {
-            
+            System.out.println("The requested elevator is already on the requested floor. Doors opening.");
+            doorOpen();
         }
-        else
+        else if(currentFloor.getFloorID() < floorIn.getFloorID())
         {
-            throw new ElevatorNotReadyException("This elevator's doors are closed and cannot accept movables.");
+            upDestinations.add(floorIn);
+            System.out.println(floorIn.getFloorID() + "added to the upDestinations list");
+        }
+        else if(currentFloor.getFloorID() > floorIn.getFloorID())
+        {
+            downDestinations.add(floorIn);
+            System.out.println(floorIn.getFloorID() + "added to the downDestinations list");
         }
     }
     
+    /**
+     * This method opens the elevator doors and prints a message.
+     */
     @Override
     public void doorOpen()
     {
-        doorState = Door.OPEN;
-        System.out.println("Doors open.");
+        if(doorState != Door.OPEN)
+        {
+            doorState = Door.OPEN;
+            System.out.println("Doors open.");
+        }
     }
 
+    /**
+     * This method closes the elevator doors and prints a message.
+     */
     @Override
     public void doorClose()
     {
-        doorState = Door.CLOSED;
-        System.out.println("Doors closed.");
+        if(doorState != Door.CLOSED)
+        {
+            doorState = Door.CLOSED;
+            System.out.println("Doors closed.");
+        }
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    //everything below this line is not part of submission 2
+    
     
     /**
      * Checks that an entry request for the elevator is valid. First checks that the elevator is not at capacity, then checks that the Movable that made the request is currently on the same floor as the elevator.
@@ -108,6 +149,15 @@ public class RegElevator implements Elevator, Lift
         else
         {
             throw new OverCapacityException("This elevator cannot accept any more movables.");
+        }
+        * 
+        *         if(doorState == Door.OPEN)
+        {
+            
+        }
+        else
+        {
+            throw new ElevatorNotReadyException("This elevator's doors are closed and cannot accept movables.");
         }
         * */
         

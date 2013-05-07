@@ -17,8 +17,8 @@ public class RegBuilding implements Building
     
     //array lists of building components
     private ArrayList<Floor> floors;
-    private ArrayList<Movable> movablesInBuilding;
     private ArrayList<Elevator> elevators;
+    private ArrayList<Movable> movablesInBuilding;
     
     //for use as the universal time in building across all floors
     private Timer universalTime;
@@ -26,12 +26,21 @@ public class RegBuilding implements Building
     //creates a reference to the one singleton instance.
     private static RegBuilding instance = null;
     
-    //default constructor creates a building with 2 floors, 1 elevator, and 1 movable.
-    private void RegBuilding()
+    /**
+     * Default constructor creates a building with 2 floors, 1 elevator, and 1 movable.
+     */
+    private RegBuilding()
     {
-        int floorCount = 2;
-        int elevatorCount = 1;
+        System.out.println("Creating Building...");
+        
+        int floorCount = 15;
+        int elevatorCount = 6;
         int movableCount = 1;
+        
+        floors = new ArrayList<Floor>();
+        elevators = new ArrayList<Elevator>();
+        movablesInBuilding = new ArrayList<Movable>();
+        
         
         for(int i = 0; i < floorCount; i++)
         {
@@ -42,17 +51,24 @@ public class RegBuilding implements Building
         {
             elevators.add(new RegElevator());
         }
-                
+        
+        //leave out the movable code for now
+        /*      
         for(int i = 0; i < movableCount; i++)
         {
             movablesInBuilding.add(new RegPerson());
         }
+        */
         
         controller = RegElevatorController.getInstance();
+        
+        System.out.println("Building created, " + floorCount + " Floors, " + elevatorCount + " Elevators.");
     }
     
-    private void RegBuilding(int elevatorCountIn, int floorCountIn, int movableCountIn)
+    private RegBuilding(int elevatorCountIn, int floorCountIn, int movableCountIn)
     {
+        System.out.println("Creating Building...");
+        
         for(int i = 0; i < floorCountIn; i++)
         {
             floors.add(new RegFloor());
@@ -69,6 +85,8 @@ public class RegBuilding implements Building
         }
         
         controller = RegElevatorController.getInstance();
+        
+        System.out.println("Building created, " + floorCountIn + " Floors, " + elevatorCountIn + " Elevators.");
     }
     
     public static RegBuilding getInstance()
@@ -92,12 +110,6 @@ public class RegBuilding implements Building
     {
         return floors.size();
     }
-    
-    public int getElevatorCount()
-    {
-        return floors.size();
-    }
-    
     
     public int getMovableCount()
     {
