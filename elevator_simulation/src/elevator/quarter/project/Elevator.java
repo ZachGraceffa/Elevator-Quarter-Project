@@ -10,8 +10,6 @@ package elevator.quarter.project;
  */
 public interface Elevator
 {
-    int ELEVATOR_CAPACITY = 20;
-    
     public void addFloorToDestList(Floor floorIn);
     public void doorOpen();
     public void doorClose();

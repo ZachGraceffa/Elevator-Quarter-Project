@@ -8,7 +8,6 @@ public interface ElevatorController
 {
     enum Direction { UP, DOWN };
     
-    public void request(Elevator elevatorIn, Floor floorIn);
     public void request(int elevatorIn, int floorIn);
     public void initializeElevators();
     

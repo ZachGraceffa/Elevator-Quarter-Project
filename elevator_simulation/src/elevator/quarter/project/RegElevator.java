@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public class RegElevator implements Elevator, Lift, Runnable
 {
+    private final int ELEVATOR_CAPACITY = 20;
+    
     //current floor & queue information
     private Floor currentFloor;
     private ArrayList<Floor> downDestinations;
@@ -23,14 +25,13 @@ public class RegElevator implements Elevator, Lift, Runnable
     private ArrayList<Movable> movablesOnElevator;
     
     //other elevator components
-    
     private FloorPanel elevatorFloorPanel;
     
     //state variables
     private Door doorState;
     private ElevatorState elevatorState;
     
-    //time values
+    //time values (ms)
     private final int timeBetweenFloors = 1000;
     private final int doorOpenCloseTime = 250;
     private final int doorStaysOpenTime = 1000;
