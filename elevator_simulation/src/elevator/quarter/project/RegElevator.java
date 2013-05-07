@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * 
  * @author Craig
  */
-public class RegElevator implements Elevator, Lift
+public class RegElevator implements Elevator, Lift, Runnable
 {
     //current floor & queue information
     private Floor currentFloor;
@@ -92,6 +92,9 @@ public class RegElevator implements Elevator, Lift
     public void addFloorToDestList(Floor floorIn)
     {
         //if the elevator is on the same floor as the floor in request, open the doors and remain idle. otherwise, add it to the proper up/down destination list.
+        
+        System.out.println(floorIn.getFloorID());
+        
         if(currentFloor.getFloorID() == floorIn.getFloorID())
         {
             System.out.println("The requested elevator is already on the requested floor. Doors opening.");
@@ -202,6 +205,12 @@ public class RegElevator implements Elevator, Lift
     {
         movablesOnElevator.remove(movableIn);
         //currentFloor.getMovablesOnFloor().add(movableIn);
+    }
+
+    @Override
+    public void run()
+    {
+        System.out.println("Elevator " + elevatorID + " running");
     }
 
 }

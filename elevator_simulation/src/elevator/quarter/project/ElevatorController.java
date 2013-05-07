@@ -11,4 +11,7 @@ public interface ElevatorController
     public void request(Elevator elevatorIn, Floor floorIn);
     public void request(int elevatorIn, int floorIn);
     public void initializeElevators();
+    
+    //accessors
+    public int getElevatorCount();
 }

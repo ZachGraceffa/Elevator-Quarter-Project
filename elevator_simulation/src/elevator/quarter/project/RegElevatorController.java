@@ -15,6 +15,8 @@ public class RegElevatorController implements ElevatorController, Lift
     private ArrayList<Elevator> elevators;
     private static RegElevatorController instance = null;
     
+    private int elevatorCount;
+    
     /**
      * Default constructor creates an elevator controller with 6 elevators.
      */
@@ -22,12 +24,14 @@ public class RegElevatorController implements ElevatorController, Lift
     {
         elevators = new ArrayList<Elevator>();
         
-        int elevatorCount = 6;
+        int numOfElevators = 6;
         
-        for(int i = 0; i < elevatorCount; i++)
+        for(int i = 0; i < numOfElevators; i++)
         {
             elevators.add(new RegElevator());
         }
+        
+        elevatorCount = numOfElevators;
     }
     
     /**
@@ -47,6 +51,17 @@ public class RegElevatorController implements ElevatorController, Lift
             }
         }
         return instance;
+    }
+    
+    //accessors
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public int getElevatorCount()
+    {
+        return elevatorCount;
     }
     
     /**
@@ -123,8 +138,8 @@ public class RegElevatorController implements ElevatorController, Lift
     @Override
     public void request(int elevatorIn, int floorIn)
     {
-        //this line looks scary, but it just adds the requested floor to the requested elevator's destination list.
-        elevators.get(elevatorIn-1).addFloorToDestList(RegBuilding.getInstance().getFloorWithIndex(floorIn));
+        //This line looks scary, but it just adds the requested floor to the requested elevator's destination list. It basically converts integer elevator and floor values into their corresponding object references and adds the floor to the elevator's destination list.
+        elevators.get(elevatorIn-1).addFloorToDestList(RegBuilding.getInstance().getFloorWithIndex(floorIn-1));
     }
     
     
