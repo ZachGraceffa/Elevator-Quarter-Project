@@ -86,15 +86,12 @@ public class RegElevator implements Elevator, Lift, Runnable
     
     /**
      * This method adds a new floor request to either the upward-bound or downward-bound destination list.
-     * @param floorIn 
+     * @param floorIn
      */
     @Override
     public void addFloorToDestList(Floor floorIn)
     {
         //if the elevator is on the same floor as the floor in request, open the doors and remain idle. otherwise, add it to the proper up/down destination list.
-        
-        System.out.println(floorIn.getFloorID());
-        
         if(currentFloor.getFloorID() == floorIn.getFloorID())
         {
             System.out.println("The requested elevator is already on the requested floor. Doors opening.");

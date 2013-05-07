@@ -22,8 +22,8 @@ public class RegFloor implements Floor{
     //Callbox object for floor
     private CallBox aRegCallBox;
     
-    private static int floorIDCounter;
-    private int floorID = 1;
+    private static int floorIDCounter = 1;
+    private int floorID;
     
     public RegFloor()
     {
