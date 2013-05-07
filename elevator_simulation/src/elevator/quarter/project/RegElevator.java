@@ -100,12 +100,12 @@ public class RegElevator implements Elevator, Lift
         else if(currentFloor.getFloorID() < floorIn.getFloorID())
         {
             upDestinations.add(floorIn);
-            System.out.println(floorIn.getFloorID() + "added to the upDestinations list");
+            System.out.println("Floor " + floorIn.getFloorID() + " added to the upDestinations list of Elevator " + elevatorID);
         }
         else if(currentFloor.getFloorID() > floorIn.getFloorID())
         {
             downDestinations.add(floorIn);
-            System.out.println(floorIn.getFloorID() + "added to the downDestinations list");
+            System.out.println("Floor " + floorIn.getFloorID() + " added to the downDestinations list of Elevator" + elevatorID);
         }
     }
     

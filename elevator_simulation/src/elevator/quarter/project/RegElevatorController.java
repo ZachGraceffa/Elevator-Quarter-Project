@@ -124,13 +124,8 @@ public class RegElevatorController implements ElevatorController, Lift
     public void request(int elevatorIn, int floorIn)
     {
         //this line looks scary, but it just adds the requested floor to the requested elevator's destination list.
-        elevators.get(floorIn).addFloorToDestList(RegBuilding.getInstance().getFloorWithIndex(floorIn)); 
+        elevators.get(elevatorIn-1).addFloorToDestList(RegBuilding.getInstance().getFloorWithIndex(floorIn));
     }
-    
-    
-    
-    
-    
     
     
     

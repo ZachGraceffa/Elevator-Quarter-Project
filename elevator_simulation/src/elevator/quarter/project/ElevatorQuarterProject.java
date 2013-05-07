@@ -19,6 +19,6 @@ public class ElevatorQuarterProject {
         RegBuilding.getInstance();
         RegElevatorController.getInstance().initializeElevators();
         
-        RegElevatorController.getInstance().request(2, 4);
+        RegElevatorController.getInstance().request(2, 10);
     }
 }

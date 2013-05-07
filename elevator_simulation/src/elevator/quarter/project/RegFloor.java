@@ -23,7 +23,7 @@ public class RegFloor implements Floor{
     private CallBox aRegCallBox;
     
     private static int floorIDCounter;
-    private int floorID;
+    private int floorID = 1;
     
     public RegFloor()
     {
@@ -31,6 +31,9 @@ public class RegFloor implements Floor{
         //downWaitList = new Queue<>();
         //movablesOnFloor = new ArrayList<Movable>();
         //aRegCallBox = new RegCallBox();
+        
+        floorID = floorIDCounter;
+        floorIDCounter++;
     }
     
     /**
