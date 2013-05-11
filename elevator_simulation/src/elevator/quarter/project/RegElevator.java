@@ -167,17 +167,23 @@ public class RegElevator implements Elevator, Lift, Runnable
                         e.printStackTrace();
                     }
                     
-                    //the up/down decision must be made here (can only be set if the elevator is currently idle)
-                    //this section assumes that the arraylist of destinations has already been sorted, meaning the first destination in the arraylist should be the closest, either up or down.
+                    /*
+                     * the up/down decision must be made here (can only be set if the elevator is currently idle)
+                     * this section assumes that the arraylist of destinations has already been sorted, meaning the first destination in the arraylist should be the closest, either up or down.
+                     */
                     if(elevatorState == ElevatorState.IDLE)
                     {
                         if(currentFloor.getFloorID() > destinations.get(0).getFloorID())
                         {
                             elevatorState = ElevatorState.GOING_DOWN;
+                            System.out.println("Elevator " + elevatorID + " going down.");
+                            waitEnded = false;
                         }
                         else if(currentFloor.getFloorID() < destinations.get(0).getFloorID())
                         {
                             elevatorState = ElevatorState.GOING_UP;
+                            System.out.println("Elevator " + elevatorID + " going up.");
+                            waitEnded = false;
                         }
                     }
                     
@@ -185,18 +191,14 @@ public class RegElevator implements Elevator, Lift, Runnable
                     {
                         //needs a try-catch
                         currentFloor = RegBuilding.getInstance().getNextLowerFloor(currentFloor);
-                        System.out.println("Passing floor " + currentFloor.getFloorID() + ".");
+                        System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + ".");
                     }
                     else if(elevatorState == ElevatorState.GOING_UP)
                     {
                         //needs a try-catch
                         currentFloor = RegBuilding.getInstance().getNextHigherFloor(currentFloor);
 
-                        System.out.println("Elevator " + elevatorID + " arrived at floor " + currentFloor.getFloorID() + ".");
-                    }
-                    else
-                    {
-                        //System.out.println("Elevator " + elevatorID + " idle.");
+                        System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + ".");
                     }
                     
                     //if the elevator is on the first floor in its destination list, it is at its only destination and it has arrived.
