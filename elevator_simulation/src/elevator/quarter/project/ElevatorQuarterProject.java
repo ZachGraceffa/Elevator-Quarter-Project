@@ -15,7 +15,7 @@ public class ElevatorQuarterProject {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws InvalidFloorRequestException
     {
         //initialize the building with a given number of elevators, floors, and movables.
         RegBuilding.getInstance();
@@ -26,15 +26,19 @@ public class ElevatorQuarterProject {
         
         ArrayList<Thread> threads = new ArrayList<Thread>();
         
+        //create all elevator threads
         for(int i = 0; i < RegElevatorController.getInstance().getElevatorCount(); i++)
         {
             threads.add(new Thread((Runnable) RegElevatorController.getInstance().getElevatorWithIndex(i)));
         }
         
+        //start all elevator threads
         for(int i = 0; i < threads.size(); i++)
         {
             threads.get(i).start();
         }
+        
+        RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(5);
         
     }
 }

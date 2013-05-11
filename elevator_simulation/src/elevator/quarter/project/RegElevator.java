@@ -147,6 +147,8 @@ public class RegElevator implements Elevator, Lift, Runnable
                     try
                     {
                         addDestination(DEFAULT_FLOOR);
+                        
+                        //reset waitEnded flag
                     }
                     catch (InvalidFloorRequestException ex)
                     {
@@ -180,7 +182,7 @@ public class RegElevator implements Elevator, Lift, Runnable
                     }
                     else
                     {
-                        System.out.println("Elevator " + elevatorID + " idle.");
+                        //System.out.println("Elevator " + elevatorID + " idle.");
                     }
                     
                     //if the elevator is on the first floor in its destination list, it is at its only destination and it has arrived.
@@ -197,6 +199,7 @@ public class RegElevator implements Elevator, Lift, Runnable
      * 
      * @param floorIn 
      */
+    @Override
     public synchronized void addDestination(int floorIn) throws InvalidFloorRequestException
     {
 	///////////////////////////////
@@ -204,11 +207,11 @@ public class RegElevator implements Elevator, Lift, Runnable
 	//ensure that requested floor is within an acceptable min/max range
         if(floorIn > RegBuilding.getInstance().getFloorCount() - 1)
         {
-            throw new InvalidFloorRequestException("Requested floor too high");
+            throw new InvalidFloorRequestException("Requested floor too large.");
         }
         else if(floorIn < 1)
         {
-            throw new InvalidFloorRequestException("Requested floor too low");
+            throw new InvalidFloorRequestException("Requested floor too small.");
         }
 	//check for wrong direction msg + return
         //else if()
@@ -230,6 +233,9 @@ public class RegElevator implements Elevator, Lift, Runnable
             ///////////////////////////////
             //add destination if it passes all the error checking
             destinations.add(getFloorInstanceOf(floorIn));
+            
+            System.out.println("Added floor " + floorIn + " to destinations list of Elevator " + elevatorID + ".");
+            
             //Collections.sort(destinations);
 
             if(elevatorState == ElevatorState.GOING_DOWN)
@@ -260,7 +266,7 @@ public class RegElevator implements Elevator, Lift, Runnable
         if(doorState != Door.OPEN)
         {
             doorState = Door.OPEN;
-            System.out.println("Doors open.");
+            System.out.println("Elevator " + elevatorID + " doors open.");
             
             //open doors for 1 second
             try
@@ -271,6 +277,9 @@ public class RegElevator implements Elevator, Lift, Runnable
             {
                 ex.printStackTrace();
             }
+            
+            //close the doors after 1 second
+            doorClose();
         }
     }
 
@@ -283,7 +292,7 @@ public class RegElevator implements Elevator, Lift, Runnable
         if(doorState != Door.CLOSED)
         {
             doorState = Door.CLOSED;
-            System.out.println("Doors closed.");
+            System.out.println("Elevator " + elevatorID + " doors closed.");
         }
     }
     
