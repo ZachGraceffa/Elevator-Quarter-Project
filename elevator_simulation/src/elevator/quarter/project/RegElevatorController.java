@@ -23,31 +23,26 @@ public class RegElevatorController implements ElevatorController, Lift
     private RegElevatorController()
     {
         elevators = new ArrayList<Elevator>();
-        
-        int numOfElevators = 6;
-        
-        for(int i = 0; i < numOfElevators; i++)
-        {
-            elevators.add(new RegElevator());
-        }
-        
-        elevatorCount = numOfElevators;
     }
-    
+
     /**
-     * Alternate constructor accepts an int value for number of elevators to create.
-     * @param numOfElevators 
+     * Initializes the ElevatorController with a given number of elevators. This method initializes all elevators to the first floor.
+     * @param numOfElevatorsIn 
      */
-    private RegElevatorController(int numOfElevatorsIn)
+    @Override
+    public void initialize(int numOfElevatorsIn)
     {
-        elevators = new ArrayList<Elevator>();
-        
         for(int i = 0; i < numOfElevatorsIn; i++)
         {
             elevators.add(new RegElevator());
         }
         
         elevatorCount = numOfElevatorsIn;
+        
+        for(int i = 0; i < elevators.size(); i++)
+        {
+            elevators.get(i).initiallySetCurrentFloor();
+        }
     }
     
     /**
@@ -78,18 +73,6 @@ public class RegElevatorController implements ElevatorController, Lift
     public int getElevatorCount()
     {
         return elevatorCount;
-    }
-    
-    /**
-     * Part of elevator initialization workaround. Other solutions welcome - This method initializes all elevators to the first floor by delegating the function to the elevator's initiallySetCurrentFloor() method.
-     */
-    @Override
-    public void initializeElevators()
-    {
-        for(int i = 0; i < elevators.size(); i++)
-        {
-            elevators.get(i).initiallySetCurrentFloor();
-        }
     }
     
     /**

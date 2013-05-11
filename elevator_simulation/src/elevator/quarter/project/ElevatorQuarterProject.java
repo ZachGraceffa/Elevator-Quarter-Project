@@ -19,20 +19,11 @@ public class ElevatorQuarterProject {
     {
         //initialize the building
         RegBuilding.getInstance();
+        RegBuilding.getInstance().initialize(2, 2, 3);
         
-        //initialize the elevators to floor 1
-        RegElevatorController.getInstance().initializeElevators();
-        
+        //requests
         RegElevatorController.getInstance().request(1, 2);
         
-        /*
-        //multithreading code
-        ArrayList<Thread> threads = new ArrayList<Thread>();
-        
-        for(int i = 0; i < RegElevatorController.getInstance().getElevatorCount(); i++)
-        {
-            //threads.add(new Thread(RegElevatorController.getInstance().))
-        }
-        */
+
     }
 }
