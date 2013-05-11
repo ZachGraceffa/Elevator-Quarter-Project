@@ -1,10 +1,6 @@
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package elevator.quarter.project;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -18,7 +14,7 @@ public class RegElevatorController implements ElevatorController, Lift
     private int elevatorCount;
     
     /**
-     * Default constructor creates an elevator controller with 6 elevators.
+     * Default constructor.
      */
     private RegElevatorController()
     {
@@ -76,6 +72,16 @@ public class RegElevatorController implements ElevatorController, Lift
     }
     
     /**
+     * 
+     * @param indexIn
+     * @return 
+     */
+    public Elevator getElevatorWithIndex(int indexIn)
+    {
+        return elevators.get(indexIn);
+    }
+    
+    /**
      * This is a simplified method designed to work with the driver main method for assignment 2. The final implementation will not use integers for parameters and will not be accessible to the main method. This is for the purposes of assignment 2 only.
      * @param floorIn
      * @param elevatorIn 
@@ -86,55 +92,4 @@ public class RegElevatorController implements ElevatorController, Lift
         //This line looks scary, but it just adds the requested floor to the requested elevator's destination list. It basically converts integer elevator and floor values into their corresponding object references and adds the floor to the elevator's destination list.
         elevators.get(elevatorIn-1).addFloorToDestList(RegBuilding.getInstance().getFloorWithIndex(floorIn-1));
     }
-    
-    
-    /////////////////////////////////////////////////////////
-    //not sure of stuff below this line
-    
-    /**
-     * This method receives a request from an elevator CallBox, it intelligently 
-     * decides which elevator to send but takes NO ACTION; it then tells the 
-     * private up/down methods to somehow service that request.
-     * @param aFloor
-     * @param direction
-     */
-   /* @Override
-    public void request(Floor aFloor, int direction)
-    {
-        Elevator sendElevator;
-        
-       
-        for(int i = 0; i < elevators.size(); i++)
-        {
-            if (elevators[i].getstate() == ElevatorState.IDLE)
-            {
-                sendElevator = elevators[i];
-                
-            }
-        }
-        
-    }*/
-    
-    /**
-     * 
-     * @param whichFloor
-     * @param whichElevator 
-     */
-    private void sendElevatorUp(Floor whichFloor, Elevator whichElevator)
-    {
-        //if elevator is already headed in correct direction hasn't passed desired floor, simply add floor to destination list.
-        
-        
-    }
-
-    /**
-     * 
-     * @param whichFloor
-     * @param whichElevator 
-     */
-    private void sendElevatorDown(Floor whichFloor, Elevator whichElevator)
-    {
-        
-    }
-    
 }

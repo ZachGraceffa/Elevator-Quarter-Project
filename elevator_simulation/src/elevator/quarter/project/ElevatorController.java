@@ -13,4 +13,5 @@ public interface ElevatorController
     
     //accessors
     public int getElevatorCount();
+    public Elevator getElevatorWithIndex(int indexIn);
 }

@@ -81,7 +81,6 @@ public class RegBuilding implements Building
     }
     
     //accessors
-    
     public int getFloorCount()
     {
         return floors.size();
@@ -96,5 +95,17 @@ public class RegBuilding implements Building
     public Floor getFloorWithIndex(int floorIndexIn)
     {
         return floors.get(floorIndexIn);
+    }
+
+    @Override
+    public Floor getNextHigherFloor(Floor floorIn)
+    {
+        return floors.get(floors.indexOf(floorIn) + 1);
+    }
+
+    @Override
+    public Floor getNextLowerFloor(Floor floorIn)
+    {
+        return floors.get(floors.indexOf(floorIn) - 1);
     }
 }

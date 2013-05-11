@@ -1,10 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package elevator.quarter.project;
 
+import static elevator.quarter.project.Lift.DEFAULT_FLOOR;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * 
@@ -16,8 +14,7 @@ public class RegElevator implements Elevator, Lift, Runnable
     
     //current floor & queue information
     private Floor currentFloor;
-    private ArrayList<Floor> downDestinations;
-    private ArrayList<Floor> upDestinations;
+    private ArrayList<Floor> destinations;
     private static int elevatorIDCounter = 1;
     private int elevatorID;
     
@@ -30,6 +27,7 @@ public class RegElevator implements Elevator, Lift, Runnable
     //state variables
     private Door doorState;
     private ElevatorState elevatorState;
+    //private boolean running;
     
     //time values (ms)
     private final int timeBetweenFloors = 1000;
@@ -41,14 +39,9 @@ public class RegElevator implements Elevator, Lift, Runnable
         doorState = Door.CLOSED;
         elevatorState = ElevatorState.IDLE;
         movablesOnElevator = new ArrayList<Movable>();
-        upDestinations = new ArrayList<Floor>();
-        downDestinations = new ArrayList<Floor>();
+        destinations = new ArrayList<Floor>();
         elevatorID = elevatorIDCounter;
         elevatorIDCounter++;
-        
-        //start all elevators at the first floor
-        //ALERT: this can't be in the constructor because it causes an infinite loop of calling the getInstance on a building that is trying to create itself but isn't quite done yet.
-        //currentFloor = RegBuilding.getInstance().getFloorWithIndex(0);
     }
     
     //accessors
@@ -73,7 +66,7 @@ public class RegElevator implements Elevator, Lift, Runnable
     }
     
     /**
-     * Part of workaround that says the elevator's initial floor can be set only once with this method.
+     * The elevator's initial floor can be set only once with this method.
      * @param floorIn 
      */
     @Override
@@ -92,6 +85,7 @@ public class RegElevator implements Elevator, Lift, Runnable
     @Override
     public void addFloorToDestList(Floor floorIn)
     {
+        /*
         //if the elevator is on the same floor as the floor in request, open the doors and remain idle. otherwise, add it to the proper up/down destination list.
         if(currentFloor.getFloorID() == floorIn.getFloorID())
         {
@@ -108,10 +102,110 @@ public class RegElevator implements Elevator, Lift, Runnable
             downDestinations.add(floorIn);
             System.out.println("Floor " + floorIn.getFloorID() + " added to the downDestinations list of Elevator" + elevatorID);
         }
+        * */
     }
     
     /**
-     * This method opens the elevator doors and prints a message.
+     * Continuously running thread method.
+     */
+    @Override
+    public void run()
+    {
+        System.out.println("Elevator " + elevatorID + " running");
+        
+	boolean running = true;
+	boolean waitEnded = false;
+	boolean waitException = false;
+	
+	while(running)
+	{
+            //this block waits for an elevator timeout
+            synchronized(this)
+            {
+                if(destinations.isEmpty())
+		{
+                    try
+                    {
+			wait(IDLE_WAIT_TIME/SCALE_FACTOR);
+			waitEnded = true;
+                    }
+                    catch(InterruptedException ex)
+                    {
+                        waitException = true;
+                        ex.printStackTrace();
+                    }
+                }
+            }
+            
+            synchronized(this)
+            {
+                //this means you timed out, so return to default floor
+                if(destinations.isEmpty() && waitEnded)
+                {
+                    addDestination(DEFAULT_FLOOR);
+                }
+                //this means there are still floors left in the destination list to visit.
+                else if(!destinations.isEmpty())
+                {
+                    try
+                    {
+                        Thread.sleep(TIME_PER_FLOOR/SCALE_FACTOR);
+                    }
+                    catch(InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    
+                    if(elevatorState == ElevatorState.GOING_DOWN)
+                    {
+                        currentFloor = RegBuilding.getInstance().getNextLowerFloor(currentFloor);
+                    }
+                    else
+                    {
+                        currentFloor = RegBuilding.getInstance().getNextHigherFloor(currentFloor);
+                    }
+                    
+                    System.out.println("Passing floor " + currentFloor + ".");
+                    
+                    //if the elevator is on the first floor in its destination list, it is at its only destination and it has arrived.
+                    if(currentFloor == destinations.get(0))
+                    {
+                        System.out.println("Arrived at floor " + currentFloor + ".");
+                        //arrived();
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param floorIn 
+     */
+    public synchronized void addDestination(int floorIn)
+    {
+	///////////////////////////////
+	//error checking
+	//ensure that it's within an acceptable min/max range
+	//check for wrong direction msg + return
+	//check for repeat destinations. you can also print a message saying "already on 10" + return
+	//check if you're already at destination >> msg + return
+	
+	///////////////////////////////
+	//add destination if it passes all the error checking
+	destinations.add(getFloorInstanceOf(floorIn));
+        //Collections.sort(destinations);
+	
+	if(elevatorState == ElevatorState.GOING_DOWN)
+	{
+		Collections.reverse(destinations);
+	}
+	
+	notifyAll(); //notify must be in a synchronized context (block or method)
+    }
+    
+    /**
+     * Opens the elevator doors and prints a message.
      */
     @Override
     public void doorOpen()
@@ -120,11 +214,21 @@ public class RegElevator implements Elevator, Lift, Runnable
         {
             doorState = Door.OPEN;
             System.out.println("Doors open.");
+            
+            //open doors for 1 second
+            try
+            {
+                Thread.sleep(DOOR_OPEN_TIME/SCALE_FACTOR);
+            }
+            catch (InterruptedException ex)
+            {
+                ex.printStackTrace();
+            }
         }
     }
 
     /**
-     * This method closes the elevator doors and prints a message.
+     * Closes the elevator doors and prints a message.
      */
     @Override
     public void doorClose()
@@ -136,9 +240,26 @@ public class RegElevator implements Elevator, Lift, Runnable
         }
     }
     
+    /**
+     * Takes an integer floor number and returns its corresponding floor object in the building's arraylist of floors.
+     * @param floorNumIn
+     * @return 
+     */
+    private Floor getFloorInstanceOf(int floorNumIn)
+    {
+        return RegBuilding.getInstance().getFloorWithIndex(floorNumIn - 1);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     ///////////////////////////////////////////////////////////////////////////
     //everything below this line is not part of submission 2
-    
     
     /**
      * Checks that an entry request for the elevator is valid. First checks that the elevator is not at capacity, then checks that the Movable that made the request is currently on the same floor as the elevator.
@@ -204,11 +325,4 @@ public class RegElevator implements Elevator, Lift, Runnable
         movablesOnElevator.remove(movableIn);
         //currentFloor.getMovablesOnFloor().add(movableIn);
     }
-
-    @Override
-    public void run()
-    {
-        System.out.println("Elevator " + elevatorID + " running");
-    }
-
 }

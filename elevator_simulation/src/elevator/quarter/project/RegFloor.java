@@ -12,7 +12,8 @@ import java.util.Queue;
  * idea: have groundFloor, RegFloor, and TopFloors!
  * Difference is that top and bottom floors wont have upwaitlist/downwaitlist
  */
-public class RegFloor implements Floor{
+public class RegFloor implements Floor, Comparable<Floor>
+{
     //FIFO list of Movables waiting to go upwards
     private Queue<Movable> upWaitList;
     //FIFO list movables waiting to go downwards
@@ -25,6 +26,13 @@ public class RegFloor implements Floor{
     private static int floorIDCounter = 1;
     private int floorID;
     
+    //accessors
+    @Override
+    public int getFloorID()
+    {
+        return floorID;
+    }
+    
     public RegFloor()
     {
         //upWaitList = new Queue<>(); //abstract queue no allowed, arraydequeue or arrayqueue?
@@ -34,6 +42,12 @@ public class RegFloor implements Floor{
         
         floorID = floorIDCounter;
         floorIDCounter++;
+    }
+    
+    @Override
+    public int compareTo(Floor o)
+    {
+        return(floorID - o.getFloorID());
     }
     
     /**
@@ -104,12 +118,4 @@ public class RegFloor implements Floor{
             throw new UnsupportedOperationException("Not supported yet.");
         }
     }
-    
-    //accessors
-    @Override
-    public int getFloorID()
-    {
-        return floorID;
-    }
-    
 }
