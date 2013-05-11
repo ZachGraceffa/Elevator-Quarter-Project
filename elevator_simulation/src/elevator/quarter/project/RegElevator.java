@@ -167,7 +167,19 @@ public class RegElevator implements Elevator, Lift, Runnable
                         e.printStackTrace();
                     }
                     
-                    
+                    //the up/down decision must be made here (can only be set if the elevator is currently idle)
+                    //this section assumes that the arraylist of destinations has already been sorted, meaning the first destination in the arraylist should be the closest, either up or down.
+                    if(elevatorState == ElevatorState.IDLE)
+                    {
+                        if(currentFloor.getFloorID() > destinations.get(0).getFloorID())
+                        {
+                            elevatorState = ElevatorState.GOING_DOWN;
+                        }
+                        else if(currentFloor.getFloorID() < destinations.get(0).getFloorID())
+                        {
+                            elevatorState = ElevatorState.GOING_UP;
+                        }
+                    }
                     
                     if(elevatorState == ElevatorState.GOING_DOWN)
                     {
