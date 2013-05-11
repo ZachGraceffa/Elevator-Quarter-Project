@@ -50,6 +50,18 @@ public class RegFloor implements Floor, Comparable<Floor>
         return(floorID - o.getFloorID());
     }
     
+    public boolean equals(Floor b)
+    {
+        if(floorID == b.getFloorID())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     /**
      * Checks to make sure that Movable is on floor and not already on list to 
      * go down, then adds movable to list of movables in line to go up.

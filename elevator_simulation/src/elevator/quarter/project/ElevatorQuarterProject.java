@@ -19,7 +19,7 @@ public class ElevatorQuarterProject {
     {
         //initialize the building with a given number of elevators, floors, and movables.
         RegBuilding.getInstance();
-        RegBuilding.getInstance().initialize(2, 10, 0);
+        RegBuilding.getInstance().initialize(1, 10, 0);
         
         //requests (elevator #, floor #)
         RegElevatorController.getInstance().request(1, 2);
