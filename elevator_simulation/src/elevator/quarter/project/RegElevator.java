@@ -259,6 +259,7 @@ public class RegElevator implements Elevator, Lift, Runnable
             
             System.out.println("Added Floor " + floorIn + " to destinations list of Elevator " + elevatorID + ".");
             
+            
             //Collections.sort(destinations);
 
             if(elevatorState == ElevatorState.GOING_DOWN)
