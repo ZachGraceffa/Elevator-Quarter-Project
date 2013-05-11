@@ -213,11 +213,16 @@ public class RegElevator implements Elevator, Lift, Runnable
         {
             throw new InvalidFloorRequestException("Requested floor too small.");
         }
-	//check for wrong direction msg + return
-        //else if()
-        //{
-            
-        //}
+	//check if requested floor is not in the current direction when going up
+        else if(elevatorState == ElevatorState.GOING_UP && currentFloor.getFloorID() > floorIn)
+        {
+            throw new InvalidFloorRequestException("Requested floor not in current direction.");
+        }
+        //check if requested floor is not in the current direction when going down
+        else if(elevatorState == ElevatorState.GOING_DOWN && currentFloor.getFloorID() < floorIn)
+        {
+            throw new InvalidFloorRequestException("Requested floor not in current direction.");
+        }
 	//check to see if the requested floor is already in the destinations list
         else if(destinations.indexOf(floorIn) > -1)
         {
