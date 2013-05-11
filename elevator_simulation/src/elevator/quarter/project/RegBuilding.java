@@ -22,6 +22,9 @@ public class RegBuilding implements Building
     //for use as the universal time in building across all floors
     private Timer universalTime;
     
+    //flag that can only be set once to ensure that the building is only initialized once.
+    private boolean hasBeenInitialized;
+    
     //creates a reference to the one singleton instance.
     private static RegBuilding instance = null;
     
@@ -45,23 +48,26 @@ public class RegBuilding implements Building
      */
     public void initialize(int elevatorCountIn, int floorCountIn, int movableCountIn)
     {   
-        for(int i = 0; i < floorCountIn; i++)
+        if(!hasBeenInitialized)
         {
-            floors.add(new RegFloor());
-        }
+            for(int i = 0; i < floorCountIn; i++)
+            {
+                floors.add(new RegFloor());
+            }
 
-        /*
-        //omit movables for now
-        for(int i = 0; i < movableCountIn; i++)
-        {
-            movablesInBuilding.add(new RegPerson());
+            /*
+            //omit movables for now
+            for(int i = 0; i < movableCountIn; i++)
+            {
+                movablesInBuilding.add(new RegPerson());
+            }
+            */
+
+            //initialize the elevator controller
+           RegElevatorController.getInstance().initialize(elevatorCountIn);
+
+            System.out.println("Building created, " + floorCountIn + " Floors, " + elevatorCountIn + " Elevators.");
         }
-        */
-        
-        //initialize the elevator controller
-       RegElevatorController.getInstance().initialize(elevatorCountIn);
-        
-        System.out.println("Building created, " + floorCountIn + " Floors, " + elevatorCountIn + " Elevators.");
     }
     
     public static RegBuilding getInstance()

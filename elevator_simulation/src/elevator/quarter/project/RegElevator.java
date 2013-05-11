@@ -167,6 +167,8 @@ public class RegElevator implements Elevator, Lift, Runnable
                         e.printStackTrace();
                     }
                     
+                    
+                    
                     if(elevatorState == ElevatorState.GOING_DOWN)
                     {
                         //needs a try-catch
@@ -189,6 +191,9 @@ public class RegElevator implements Elevator, Lift, Runnable
                     if(currentFloor == destinations.get(0))
                     {
                         elevatorArrived();
+                        
+                        //set elevator's state to idle so it can be reset to up or down.
+                        elevatorState = ElevatorState.IDLE;
                     }
                 }
             }
@@ -235,11 +240,10 @@ public class RegElevator implements Elevator, Lift, Runnable
         }
         else
         {
-            ///////////////////////////////
-            //add destination if it passes all the error checking
+            //add destination if requested floor passes all the error checking
             destinations.add(getFloorInstanceOf(floorIn));
             
-            System.out.println("Added floor " + floorIn + " to destinations list of Elevator " + elevatorID + ".");
+            System.out.println("Added Floor " + floorIn + " to destinations list of Elevator " + elevatorID + ".");
             
             //Collections.sort(destinations);
 
