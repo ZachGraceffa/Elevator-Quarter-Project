@@ -16,6 +16,7 @@ public interface Elevator
     public void entryRequest(Movable movableIn) throws OverCapacityException;
     public void removalRequest(Movable movableIn) throws OverCapacityException;
     public void addDestination(int floorIn) throws InvalidFloorRequestException;
+    public void endRun(); 
 
     
     //accessors

@@ -1,6 +1,6 @@
 package elevator.quarter.project;
 
-import static elevator.quarter.project.Lift.DEFAULT_FLOOR;
+import static elevator.quarter.project.Definitions.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * 
  * @author Craig
  */
-public class RegElevator implements Elevator, Lift, Runnable
+public class RegElevator implements Elevator, Definitions, Runnable
 {
     private final int ELEVATOR_CAPACITY = 20;
     
@@ -29,12 +29,8 @@ public class RegElevator implements Elevator, Lift, Runnable
     //state variables
     private Door doorState;
     private ElevatorState elevatorState;
-    //private boolean running;
+    private boolean running;
     
-    //time values (ms)
-    private final int timeBetweenFloors = 1000;
-    private final int doorOpenCloseTime = 250;
-    private final int doorStaysOpenTime = 1000;
     
     public RegElevator()
     {
@@ -58,8 +54,8 @@ public class RegElevator implements Elevator, Lift, Runnable
     }
     
     /**
-     * accessor for currentFloor
-     * @return 
+     * accessor for currentFloor.
+     * @return floor object representing current floor.
      */
     @Override
     public Floor getCurrentFloor()
@@ -71,12 +67,11 @@ public class RegElevator implements Elevator, Lift, Runnable
      * The elevator's initial floor can be set only once with this method.
      * @param floorIn 
      */
-    @Override
     public void initiallySetCurrentFloor()
     {
         if(currentFloor == null)
         {
-            currentFloor = RegBuilding.getInstance().getFloorWithIndex(0);
+            currentFloor = RegBuilding.getInstance().getFloorWithIndex(DEFAULT_FLOOR);
         }
     }
     
@@ -115,9 +110,11 @@ public class RegElevator implements Elevator, Lift, Runnable
     {
         System.out.println("Elevator " + elevatorID + " running.");
         
-	boolean running = true;
+	
 	boolean waitEnded = false;
 	boolean waitException = false;
+        
+        running = true;
 	
 	while(running)
 	{
@@ -145,8 +142,9 @@ public class RegElevator implements Elevator, Lift, Runnable
                 if(destinations.isEmpty() && waitEnded)
                 {
                     try
-                    {
-                        addDestination(DEFAULT_FLOOR);
+                    {   
+                        if(currentFloor.getFloorID() != DEFAULT_FLOOR)
+                            addDestination(DEFAULT_FLOOR);
                         
                         //reset waitEnded flag
                     }
@@ -173,6 +171,7 @@ public class RegElevator implements Elevator, Lift, Runnable
                      */
                     if(elevatorState == ElevatorState.IDLE)
                     {
+                     
                         if(currentFloor.getFloorID() > destinations.get(0).getFloorID())
                         {
                             elevatorState = ElevatorState.GOING_DOWN;
@@ -211,9 +210,26 @@ public class RegElevator implements Elevator, Lift, Runnable
                     }
                 }
             }
-        }
+        }//end while
     }
     
+    
+    /**
+     * Shuts down elevator next time it is 'IDLE'.
+     */
+    public void endRun()
+    {
+        boolean readyToStop = false;
+        while(!readyToStop)
+        {
+            if(elevatorState == ElevatorState.IDLE)//may need to add more checks
+            {
+                running = false;
+                readyToStop = true;
+                System.out.println("Elevator " + elevatorID + " is shut down!");
+            }
+        }
+    }
     /**
      * 
      * @param floorIn 
@@ -224,7 +240,7 @@ public class RegElevator implements Elevator, Lift, Runnable
 	///////////////////////////////
 	//error checking
 	//ensure that requested floor is within an acceptable min/max range
-        if(floorIn > RegBuilding.getInstance().getFloorCount() - 1)
+        if(floorIn > RegBuilding.getInstance().getFloorCount())
         {
             throw new InvalidFloorRequestException("Requested floor too large.");
         }
@@ -332,7 +348,7 @@ public class RegElevator implements Elevator, Lift, Runnable
     
     
     
-    
+   
     
     
     

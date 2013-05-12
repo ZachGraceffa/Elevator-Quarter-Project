@@ -6,7 +6,7 @@ import java.util.Collections;
  *
  * @author ZGraceffa & Craig
  */
-public class RegElevatorController implements ElevatorController, Lift
+public class RegElevatorController implements ElevatorController, Definitions
 {
     private ArrayList<Elevator> elevators;
     private static RegElevatorController instance = null;
@@ -32,9 +32,9 @@ public class RegElevatorController implements ElevatorController, Lift
         {
             elevators.add(new RegElevator());
         }
-        
+
         elevatorCount = numOfElevatorsIn;
-        
+
         for(int i = 0; i < elevators.size(); i++)
         {
             elevators.get(i).initiallySetCurrentFloor();
@@ -78,7 +78,7 @@ public class RegElevatorController implements ElevatorController, Lift
      */
     public Elevator getElevatorWithIndex(int indexIn)
     {
-        return elevators.get(indexIn);
+            return elevators.get(indexIn);
     }
     
     /**

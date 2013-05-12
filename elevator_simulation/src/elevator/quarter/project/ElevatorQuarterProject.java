@@ -1,22 +1,22 @@
 package elevator.quarter.project;
 
-import static elevator.quarter.project.Lift.*;
+import static elevator.quarter.project.Definitions.*;
 import java.util.*;
 
-/**
+/** Contains The driver for the elevator simulation, will change depending on current stage in project; see @main.
  *
  * @author Craig and ZGraceffa
  */
 public class ElevatorQuarterProject {
 
-    /**
+    /** Driver for elevator simulation mapped to specific implementation 1 instructions.
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InvalidFloorRequestException
     {
         //initialize the building with a given number of elevators, floors, and movables.
         RegBuilding.getInstance();
-        RegBuilding.getInstance().initialize(6, 15, 0);
+        RegBuilding.getInstance().initialize(NUM_OF_ELEVATORS, NUM_OF_FLOORS, NUM_OF_MOVABLES);
         
         //requests (elevator #, floor #)
         //RegElevatorController.getInstance().request(1, 2);
@@ -37,7 +37,8 @@ public class ElevatorQuarterProject {
         
         try
         {
-            //all sleeps are 1 second longer than necessary to be safe
+            Thread.sleep(5000/SCALE_FACTOR);//allow elevators to initialize
+            
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(11);
             RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(14);
             Thread.sleep(7000/SCALE_FACTOR);//to show can add dest while moving
@@ -53,6 +54,8 @@ public class ElevatorQuarterProject {
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(5);
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(3);//to demonstrate destination list sorting
             Thread.sleep(30000/SCALE_FACTOR); //allow all elevators to return to default floors
+       
+            System.out.println("testing...");
         }
         catch(InterruptedException ex)
         {
@@ -63,7 +66,7 @@ public class ElevatorQuarterProject {
         //stop all elevator threads
         for(int i = 0; i < threads.size(); i++)
         {
-            threads.get(i).stop();
+            RegElevatorController.getInstance().getElevatorWithIndex(i).endRun();
         }
         
     }//end main
