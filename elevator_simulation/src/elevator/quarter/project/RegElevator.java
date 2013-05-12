@@ -322,10 +322,19 @@ public class RegElevator implements Elevator, Definitions, Runnable
     private String printDestList()
     {
         String destList = "No further destinations.";
+        int limit = destinations.size();
         
         if(!destinations.isEmpty())
         {
-            destList = " Full destination list : [" + destinations.toString() + "].";
+            destList = " Full destination list : [";
+            for(int i = 0; i < limit; i++)
+            {
+                destList += destinations.get(i).getFloorID();
+                if((i + 1) != limit)
+                    destList += ", ";
+            }
+            
+            destList += "].";
         }
         
         return destList;
