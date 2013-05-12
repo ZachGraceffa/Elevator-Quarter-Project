@@ -2,6 +2,7 @@ package elevator.quarter.project;
 
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.Comparator;
 
 /**
  * Represents 1 floor in a building.
@@ -50,6 +51,21 @@ public class RegFloor implements Floor, Comparable<Floor>
         return(floorID - o.getFloorID());
     }
     
+    public static class compareFloors implements Comparator<Floor>
+    {
+        @Override
+        public int compare(Floor one, Floor two)
+        {       
+            if(one.getFloorID() > two.getFloorID())
+                return 1;
+            else if (one.getFloorID() < two.getFloorID())
+                return -1;
+            else
+                return 0;
+        }//end compare method
+    }//end CompareFloors class
+    
+    @Override
     public boolean equals(Floor b)
     {
         if(floorID == b.getFloorID())
@@ -130,4 +146,5 @@ public class RegFloor implements Floor, Comparable<Floor>
             throw new UnsupportedOperationException("Not supported yet.");
         }
     }
+
 }

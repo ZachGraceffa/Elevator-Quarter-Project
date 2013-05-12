@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 /**
  * 
- * @author Craig
+ * @author Craig & ZGraceffa
  */
-public class RegElevator implements Elevator, Definitions, Runnable
+public class RegElevator implements Elevator, Runnable
 {
     private final int ELEVATOR_CAPACITY = 20;
     
@@ -249,7 +249,7 @@ public class RegElevator implements Elevator, Definitions, Runnable
             System.out.println("Added Floor " + floorIn + " to destinations list of Elevator " + elevatorID + "." + printDestList());
             
             
-            //Collections.sort(destinations);
+            Collections.sort(destinations, new RegFloor.compareFloors());
 
             if(elevatorState == ElevatorState.GOING_DOWN)
             {
@@ -319,6 +319,10 @@ public class RegElevator implements Elevator, Definitions, Runnable
         return RegBuilding.getInstance().getFloorWithIndex(floorNumIn - 1);
     }
     
+    /**
+     * Creates a string containing the current destination list of this elevator.
+     * @return destList
+     */
     private String printDestList()
     {
         String destList = "No further destinations.";
