@@ -45,7 +45,7 @@ public class RegElevator implements Elevator, Runnable
     //accessors
     /**
      * accessor for elevatorID
-     * @return 
+     * @return elevatorID
      */
     @Override
     public int getElevatorID()

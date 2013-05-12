@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 /**
  * Represents 1 floor in a building.
- * @author ZGraceffa
+ * @author ZGraceffa & Craig
  */
 
 /*
@@ -43,12 +43,6 @@ public class RegFloor implements Floor, Comparable<Floor>
         
         floorID = floorIDCounter;
         floorIDCounter++;
-    }
-    
-    @Override
-    public int compareTo(Floor o)
-    {
-        return(floorID - o.getFloorID());
     }
     
     public static class compareFloors implements Comparator<Floor>
