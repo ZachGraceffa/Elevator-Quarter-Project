@@ -41,7 +41,7 @@ public class RegBuilding implements Building
     }
     
     /**
-     * Initializes the newly constructed Building and ElevatorController
+     * Initializes the newly constructed Building and ElevatorController.
      * @param elevatorCountIn
      * @param floorCountIn
      * @param movableCountIn
