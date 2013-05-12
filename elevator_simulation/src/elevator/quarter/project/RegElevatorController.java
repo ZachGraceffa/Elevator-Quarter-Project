@@ -89,7 +89,13 @@ public class RegElevatorController implements ElevatorController, Definitions
     @Override
     public void request(int elevatorIn, int floorIn)
     {
-        //This line looks scary, but it just adds the requested floor to the requested elevator's destination list. It basically converts integer elevator and floor values into their corresponding object references and adds the floor to the elevator's destination list.
-        elevators.get(elevatorIn-1).addFloorToDestList(RegBuilding.getInstance().getFloorWithIndex(floorIn-1));
+        try{
+            //This line looks scary, but it just adds the requested floor to the requested elevator's destination list. It basically converts integer elevator and floor values into their corresponding object references and adds the floor to the elevator's destination list.
+            elevators.get(elevatorIn-1).addDestination(RegBuilding.getInstance().getFloorWithIndex(floorIn-1).getFloorID());
+        }
+        catch(InvalidFloorRequestException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 }

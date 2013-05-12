@@ -10,7 +10,6 @@ package elevator.quarter.project;
  */
 public interface Elevator
 {
-    public void addFloorToDestList(Floor floorIn);
     public void doorOpen();
     public void doorClose();
     public void entryRequest(Movable movableIn) throws OverCapacityException;

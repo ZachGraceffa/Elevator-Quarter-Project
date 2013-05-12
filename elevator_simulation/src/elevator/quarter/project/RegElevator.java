@@ -76,33 +76,6 @@ public class RegElevator implements Elevator, Definitions, Runnable
     }
     
     /**
-     * This method adds a new floor request to either the upward-bound or downward-bound destination list.
-     * @param floorIn
-     */
-    @Override
-    public void addFloorToDestList(Floor floorIn)
-    {
-        /*
-        //if the elevator is on the same floor as the floor in request, open the doors and remain idle. otherwise, add it to the proper up/down destination list.
-        if(currentFloor.getFloorID() == floorIn.getFloorID())
-        {
-            System.out.println("The requested elevator is already on the requested floor. Doors opening.");
-            doorOpen();
-        }
-        else if(currentFloor.getFloorID() < floorIn.getFloorID())
-        {
-            upDestinations.add(floorIn);
-            System.out.println("Floor " + floorIn.getFloorID() + " added to the upDestinations list of Elevator " + elevatorID);
-        }
-        else if(currentFloor.getFloorID() > floorIn.getFloorID())
-        {
-            downDestinations.add(floorIn);
-            System.out.println("Floor " + floorIn.getFloorID() + " added to the downDestinations list of Elevator" + elevatorID);
-        }
-        * */
-    }
-    
-    /**
      * Continuously running thread method.
      */
     @Override
@@ -146,7 +119,7 @@ public class RegElevator implements Elevator, Definitions, Runnable
                         if(currentFloor.getFloorID() != DEFAULT_FLOOR)
                             addDestination(DEFAULT_FLOOR);
                         
-                        //reset waitEnded flag
+                        waitEnded = false;
                     }
                     catch (InvalidFloorRequestException ex)
                     {
@@ -175,13 +148,13 @@ public class RegElevator implements Elevator, Definitions, Runnable
                         if(currentFloor.getFloorID() > destinations.get(0).getFloorID())
                         {
                             elevatorState = ElevatorState.GOING_DOWN;
-                            System.out.println("Elevator " + elevatorID + " going down.");
+                            System.out.println("Elevator " + elevatorID + " going down." + printDestList());
                             waitEnded = false;
                         }
                         else if(currentFloor.getFloorID() < destinations.get(0).getFloorID())
                         {
                             elevatorState = ElevatorState.GOING_UP;
-                            System.out.println("Elevator " + elevatorID + " going up.");
+                            System.out.println("Elevator " + elevatorID + " going up." + printDestList());
                             waitEnded = false;
                         }
                     }
@@ -190,14 +163,14 @@ public class RegElevator implements Elevator, Definitions, Runnable
                     {
                         //needs a try-catch
                         currentFloor = RegBuilding.getInstance().getNextLowerFloor(currentFloor);
-                        System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + ".");
+                        System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + "." + printDestList());
                     }
                     else if(elevatorState == ElevatorState.GOING_UP)
                     {
                         //needs a try-catch
                         currentFloor = RegBuilding.getInstance().getNextHigherFloor(currentFloor);
 
-                        System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + ".");
+                        System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + "." + printDestList());
                     }
                     
                     //if the elevator is on the first floor in its destination list, it is at its only destination and it has arrived.
@@ -273,7 +246,7 @@ public class RegElevator implements Elevator, Definitions, Runnable
             //add destination if requested floor passes all the error checking
             destinations.add(getFloorInstanceOf(floorIn));
             
-            System.out.println("Added Floor " + floorIn + " to destinations list of Elevator " + elevatorID + ".");
+            System.out.println("Added Floor " + floorIn + " to destinations list of Elevator " + elevatorID + "." + printDestList());
             
             
             //Collections.sort(destinations);
@@ -346,7 +319,17 @@ public class RegElevator implements Elevator, Definitions, Runnable
         return RegBuilding.getInstance().getFloorWithIndex(floorNumIn - 1);
     }
     
-    
+    private String printDestList()
+    {
+        String destList = "No further destinations.";
+        
+        if(!destinations.isEmpty())
+        {
+            destList = " Full destination list : [" + destinations.toString() + "].";
+        }
+        
+        return destList;
+    }
     
    
     
