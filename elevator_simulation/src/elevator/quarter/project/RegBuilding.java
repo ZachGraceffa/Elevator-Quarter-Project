@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package elevator.quarter.project;
 
 import java.util.*;
 
 /**
  * 
- * @author Craig Brott
+ * @author Craig Brott & ZGraceffa
  */
 public class RegBuilding implements Building
 {
@@ -29,7 +25,7 @@ public class RegBuilding implements Building
     private static RegBuilding instance = null;
     
     /**
-     * Default constructor creates a building with 2 floors, 1 elevator, and 1 movable.
+     * Default constructor creates a building with floors elevators and movables as defined in @class definitions.java.
      */
     private RegBuilding()
     {
@@ -38,7 +34,7 @@ public class RegBuilding implements Building
         floors = new ArrayList<Floor>();
         movablesInBuilding = new ArrayList<Movable>();
         controller = RegElevatorController.getInstance();
-    }
+    }// end constructor
     
     /**
      * Initializes the newly constructed Building and ElevatorController.
@@ -68,8 +64,12 @@ public class RegBuilding implements Building
 
             System.out.println("Building created, " + floorCountIn + " Floors, " + elevatorCountIn + " Elevators.");
         }
-    }
+    }//end initialize
     
+    /**
+     * Singleton for RegBuilding.
+     * @return instance of RegBuilding
+     */
     public static RegBuilding getInstance()
     {
         if(instance == null)
@@ -84,34 +84,71 @@ public class RegBuilding implements Building
             }
         }
         return instance;
-    }
+    }//end getInstance
     
     //accessors
+    /**
+     * Accessor for total number of floors (0 = 1st floor).
+     * @return number of floors in building
+     */
     public int getFloorCount()
     {
         return floors.size();
-    }
+    }//end getFloorCount
     
+    /**
+     * Accessor for total count of every movable in building
+     * @return count of all movables in building.
+     */
     public int getMovableCount()
     {
         return movablesInBuilding.size();
-    }
-
+    }//end getMovableCount
+    
+    /**
+     * Accessor for floor with index @param floorIndexIn if in range.
+     * @param floorIndexIn
+     * @return floor with index @param floorIdexIn.
+     * @throws IndexOutOfBoundsException 
+     */
     @Override
-    public Floor getFloorWithIndex(int floorIndexIn)
+    public Floor getFloorWithIndex(int floorIndexIn) throws IndexOutOfBoundsException
     {
-        return floors.get(floorIndexIn);
-    }
-
+        floorIndexIn -= 1; //so floor 1 = floors.get(0);
+        if( floorIndexIn >= 0 && floorIndexIn < floors.size())
+            return floors.get(floorIndexIn);
+        else
+            throw new IndexOutOfBoundsException("Cannot access floor " + floorIndexIn + ". (0-" + (floors.size() - 1) +")");
+    }//end getFloorWithIndex
+    
+    /**
+     * Accessor for floor above current floor if not on top floor.
+     * @param floorIn
+     * @return the floor below @param floorIn.
+     * @throws IndexOutOfBoundsException 
+     */
     @Override
-    public Floor getNextHigherFloor(Floor floorIn)
+    public Floor getNextHigherFloor(Floor floorIn) throws IndexOutOfBoundsException
     {
-        return floors.get(floors.indexOf(floorIn) + 1);
-    }
-
+        if(floorIn.getFloorID() < floors.size())
+            return floors.get(floors.indexOf(floorIn) + 1);
+        else
+            throw new IndexOutOfBoundsException("Cannot access floor " + floorIn.getFloorID() + ". (0-" + (floors.size() - 1) +")");
+    }//end getNextHigherFloor
+    
+    /**
+     * Accessor for floor below current floor if above first floor.
+     * @param floorIn
+     * @return the floor below @param floorIn.
+     * @throws IndexOutOfBoundsException 
+     */
     @Override
-    public Floor getNextLowerFloor(Floor floorIn)
+    public Floor getNextLowerFloor(Floor floorIn) throws IndexOutOfBoundsException
     {
-        return floors.get(floors.indexOf(floorIn) - 1);
-    }
+        if(floorIn.getFloorID() > 0)
+            return floors.get(floors.indexOf(floorIn) -1);
+        else
+            throw new IndexOutOfBoundsException("Cannot access floor " + floorIn.getFloorID() + ". (0-" + (floors.size() - 1) +")");
+    }//end getNextLowerFloor
+    
 }

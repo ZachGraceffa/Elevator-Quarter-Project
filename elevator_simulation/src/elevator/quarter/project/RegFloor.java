@@ -13,7 +13,7 @@ import java.util.Comparator;
  * idea: have groundFloor, RegFloor, and TopFloors!
  * Difference is that top and bottom floors wont have upwaitlist/downwaitlist
  */
-public class RegFloor implements Floor, Comparable<Floor>
+public class RegFloor implements Floor
 {
     //FIFO list of Movables waiting to go upwards
     private Queue<Movable> upWaitList;

@@ -3,13 +3,15 @@ package elevator.quarter.project;
 import static elevator.quarter.project.Definitions.*;
 import java.util.*;
 
-/** Contains The driver for the elevator simulation, will change depending on current stage in project; see @main.
+/** 
+ * Contains The driver for the elevator simulation, will change depending on current stage in project; see @main.
  *
  * @author Craig and ZGraceffa
  */
 public class ElevatorQuarterProject {
 
-    /** Driver for elevator simulation mapped to specific implementation 1 instructions.
+    /** 
+     * Driver for elevator simulation mapped to specific implementation 1 instructions.
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InvalidFloorRequestException
@@ -34,14 +36,15 @@ public class ElevatorQuarterProject {
         
         try
         {
-            Thread.sleep(5000/SCALE_FACTOR);//allow elevators to initialize
-            
-            //RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(11);
-            //RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(14);
-            //Thread.sleep(7000/SCALE_FACTOR);//to show can add dest while moving
-            //RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(13);
-            //RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(15);
-            //Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations
+            //actual test
+            /*
+            //Thread.sleep(5000/SCALE_FACTOR);//allow elevators to initialize
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(11);
+            RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(14);
+            Thread.sleep(7000/SCALE_FACTOR);//to show can add dest while moving
+            RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(13);
+            RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(15);
+            Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(10);//for sake of using a new elevator
             Thread.sleep(1000/SCALE_FACTOR);//give elevator 2 chance to move
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(1);//request should be denied
@@ -51,6 +54,14 @@ public class ElevatorQuarterProject {
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(5);
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(3);//to demonstrate destination list sorting
             Thread.sleep(30000/SCALE_FACTOR); //allow all elevators to return to default floors
+            */
+            
+            
+            RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(14);
+            Thread.currentThread().sleep(1000/SCALE_FACTOR);
+            RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(8);//to demonstrate destination list sorting
+            Thread.sleep(40000/SCALE_FACTOR); //allow all elevators to return to default floors
+            
         }
         catch(InterruptedException ex)
         {

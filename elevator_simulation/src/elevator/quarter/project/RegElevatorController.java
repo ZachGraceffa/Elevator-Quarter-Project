@@ -76,9 +76,13 @@ public class RegElevatorController implements ElevatorController, Definitions
      * @param indexIn
      * @return 
      */
-    public Elevator getElevatorWithIndex(int indexIn)
+    @Override
+    public Elevator getElevatorWithIndex(int indexIn) throws IndexOutOfBoundsException
     {
+        if( indexIn >= 0 && indexIn < elevators.size())
             return elevators.get(indexIn);
+        else
+            throw new IndexOutOfBoundsException("Cannot access elevator " + indexIn + ". (0-" + (elevators.size() - 1) +")");
     }
     
     /**

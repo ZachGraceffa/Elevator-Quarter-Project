@@ -15,7 +15,7 @@ interface Definitions
     
     int DEFAULT_FLOOR = 1;
     int TIME_PER_FLOOR = 1000;
-    int SCALE_FACTOR = 5;
+    int SCALE_FACTOR = 100;
     int DOOR_OPEN_TIME = 1000;
     int IDLE_WAIT_TIME = 10000;
 }
