@@ -37,13 +37,18 @@ public class ElevatorQuarterProject {
         try
         {
             //actual test
-            /*
-            //Thread.sleep(5000/SCALE_FACTOR);//allow elevators to initialize
+            
+            Thread.sleep(2000/SCALE_FACTOR);//allow elevators to initialize
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(11);
-            RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(14);
-            Thread.sleep(7000/SCALE_FACTOR);//to show can add dest while moving
-            RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(13);
-            RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(15);
+            //Thread.sleep(1000);
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(12);
+            Thread.sleep(100);//to show can add dest while moving
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(10);
+            Thread.sleep(1000/SCALE_FACTOR);
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(15);
+            
+            
+            /*
             Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(10);//for sake of using a new elevator
             Thread.sleep(1000/SCALE_FACTOR);//give elevator 2 chance to move
@@ -56,11 +61,22 @@ public class ElevatorQuarterProject {
             Thread.sleep(30000/SCALE_FACTOR); //allow all elevators to return to default floors
             */
             
+            //craig's test
+            /*
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(4);
+            Thread.sleep(1000/SCALE_FACTOR);
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(2);
+            Thread.sleep(1000/SCALE_FACTOR);
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(9);
+            */
             
+            /*
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(14);
             Thread.currentThread().sleep(1000/SCALE_FACTOR);
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(8);//to demonstrate destination list sorting
             Thread.sleep(40000/SCALE_FACTOR); //allow all elevators to return to default floors
+            */
+            
             
         }
         catch(InterruptedException ex)
@@ -69,10 +85,12 @@ public class ElevatorQuarterProject {
         }
         
         //stop all elevator threads
+        /*
         for(int i = 0; i < elevatorThreads.size(); i++)
         {
             RegElevatorController.getInstance().getElevatorWithIndex(i).endRun();
         }
+        */
         
     }//end main
     

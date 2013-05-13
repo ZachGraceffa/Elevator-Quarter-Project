@@ -147,21 +147,27 @@ public class RegElevator implements Elevator, Runnable
                      * this section assumes that the arraylist of destinations has already been sorted, meaning the first destination in the arraylist should be the closest, either up or down.
                      */
 
-                     if(this.getCurrentFloor().getFloorID() != destinations.get(0).getFloorID())
-                     {
-                        if(this.getCurrentFloor().getFloorID() > destinations.get(0).getFloorID())
+                    //determines whether the elevator is going up or down
+                    if(elevatorState == ElevatorState.IDLE)
+                    {
+                        if(this.getCurrentFloor().getFloorID() != destinations.get(0).getFloorID())
                         {
-                            elevatorState = ElevatorState.GOING_DOWN;
-                            //System.out.println("Elevator " + elevatorID + " going down." + printDestList());
-                            waitEnded = false;
+                            if(this.getCurrentFloor().getFloorID() > destinations.get(0).getFloorID())
+                            {
+                                elevatorState = ElevatorState.GOING_DOWN;
+                                System.out.println("Elevator " + elevatorID + " going down." + printDestList());
+                                waitEnded = false;
+                            }
+                            else if(this.getCurrentFloor().getFloorID() < destinations.get(0).getFloorID())
+                            {
+                                elevatorState = ElevatorState.GOING_UP;
+                                System.out.println("Elevator " + elevatorID + " going up." + printDestList());
+                                waitEnded = false;
+                            }
                         }
-                        else if(this.getCurrentFloor().getFloorID() < destinations.get(0).getFloorID())
-                        {
-                            elevatorState = ElevatorState.GOING_UP;
-                            //System.out.println("Elevator " + elevatorID + " going up." + printDestList());
-                            waitEnded = false;
-                        }
-                     }
+                    }
+                     
+                     //increments or decrements the floor based on the previous logic block
                     if(elevatorState == ElevatorState.GOING_DOWN)
                     {   
                         //needs a try-catch
@@ -176,7 +182,8 @@ public class RegElevator implements Elevator, Runnable
                         if(!this.getCurrentFloor().equals(destinations.get(0)))
                             System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + "." + printDestList());
                     }
-                    //if the elevator is on the first floor in its destination list, it is at its only destination and it has arrived.
+                    
+                    //if the elevator is at the destination with index 0, it has arrived at a destination
                     if(currentFloor == destinations.get(0))
                     {
                         elevatorArrived();
@@ -186,8 +193,6 @@ public class RegElevator implements Elevator, Runnable
         }//end while
     }//end run method
 
-    
-    
     /**
      * Shuts down elevator next time it is 'IDLE' and has no further destinations.
      */
@@ -215,6 +220,7 @@ public class RegElevator implements Elevator, Runnable
         ///////////////////////////////
 	//error checking
 	//ensure that requested floor is within an acceptable min/max range
+        System.out.println(elevatorState);
         if(floorIn > RegBuilding.getInstance().getFloorCount())
         {
             throw new InvalidFloorRequestException("Requested floor too large.");
@@ -226,12 +232,12 @@ public class RegElevator implements Elevator, Runnable
 	//check if requested floor is not in the current direction when going up
         else if(elevatorState == ElevatorState.GOING_UP && currentFloor.getFloorID() > floorIn)
         {
-            throw new InvalidFloorRequestException("Requested floor not in current(upward) direction.");
+            throw new InvalidFloorRequestException("Requested floor not in current (upward) direction.");
         }
         //check if requested floor is not in the current direction when going down
         else if(elevatorState == ElevatorState.GOING_DOWN && currentFloor.getFloorID() < floorIn)
         {
-            throw new InvalidFloorRequestException("Requested floor not in current(downward) direction.");
+            throw new InvalidFloorRequestException("Requested floor not in current (downward) direction.");
         }
 	//check to see if the requested floor is already in the destinations list
         else if(destinations.indexOf(floorIn) > -1)
@@ -239,10 +245,11 @@ public class RegElevator implements Elevator, Runnable
             throw new InvalidFloorRequestException("Requested floor already in destinations list.");
         }
         else
-        {  
+        {
+            //System.out.println("Indexof floorin : " + destinations.indexOf(floorIn));
             //add destination if requested floor passes all the error checking and elevator is not on current floor.
-            //if(this.getCurrentFloor().getFloorID() != floorIn)
-            //{
+            if(this.getCurrentFloor().getFloorID() != floorIn)
+            {
                 destinations.add(getFloorInstanceOf(floorIn));
                 
                 Collections.sort(destinations, new RegFloor.compareFloors());
@@ -253,23 +260,27 @@ public class RegElevator implements Elevator, Runnable
                 }
                 
                 System.out.println("Added Floor " + floorIn + " to destinations list of Elevator " + elevatorID + "." + printDestList());
-            //}
+            }
 
             notifyAll(); //notify must be in a synchronized context (block or method)
         }
     }
     
     /**
-     * Takes care of clearing out the destination list, opening the doors, and other arrival tasks.
+     * This indicates that the elevator has arrived at its final destination. Takes care of clearing out the destination list, opening the doors, and other arrival tasks.
      */
     private void elevatorArrived()
     {
-        System.out.println("Elevator " + elevatorID + " arrived at floor " + currentFloor.getFloorID() + ".");
+        System.out.println("Elevator " + elevatorID + " arrived at Floor " + currentFloor.getFloorID() + ".");
         destinations.remove(0);//removes destination just arrived at
         
         doorOpen();
+        
         if(destinations.isEmpty())
+        {
             elevatorState = ElevatorState.IDLE;
+        }
+        
     }
     
     /**
