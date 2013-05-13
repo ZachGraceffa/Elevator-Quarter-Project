@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package elevator.quarter.project;
+package elevator.quarter.project.elevatorsystem;
 
 /**
  * Elevator callbox (up/down buttons), 1 per floor; top and bottom floor will 

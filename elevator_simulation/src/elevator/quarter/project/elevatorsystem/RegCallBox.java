@@ -1,10 +1,9 @@
-package elevator.quarter.project;
+package elevator.quarter.project.elevatorsystem;
 
 /**
  * 
  * @author ZGraceffa
  */
-
 public class RegCallBox implements CallBox
 {
     

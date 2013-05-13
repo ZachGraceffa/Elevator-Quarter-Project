@@ -1,5 +1,8 @@
-package elevator.quarter.project;
+package elevator.quarter.project.structures;
 
+import elevator.quarter.project.elevatorsystem.RegElevatorController;
+import elevator.quarter.project.elevatorsystem.ElevatorController;
+import elevator.quarter.project.population.Movable;
 import java.util.*;
 
 /**

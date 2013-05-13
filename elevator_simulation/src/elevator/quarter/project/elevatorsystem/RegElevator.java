@@ -1,16 +1,16 @@
-package elevator.quarter.project;
+package elevator.quarter.project.elevatorsystem;
 
-import static elevator.quarter.project.Definitions.*;
+import elevator.quarter.project.structures.*;
+import elevator.quarter.project.population.Movable;
+import elevator.quarter.project.Definitions;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * 
  * @author Craig & ZGraceffa
  */
-public class RegElevator implements Elevator, Runnable
+public class RegElevator implements Elevator, Runnable, Definitions
 {
     private final int ELEVATOR_CAPACITY = 20;
     
@@ -171,8 +171,6 @@ public class RegElevator implements Elevator, Runnable
                         }
                     }
             } 
-            synchronized(this)
-            {
                      //increments or decrements the floor based on the previous logic block
                     if(elevatorState == ElevatorState.GOING_DOWN)
                     {
@@ -192,7 +190,6 @@ public class RegElevator implements Elevator, Runnable
                             System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + "." + printDestList());
                         }
                     }
-            } 
             synchronized(this)
             {
                 //if the elevator is at the destination with index 0, it has arrived at a destination

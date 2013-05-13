@@ -1,8 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package elevator.quarter.project;
+package elevator.quarter.project.elevatorsystem;
+import elevator.quarter.project.structures.Floor;
+import elevator.quarter.project.population.Movable;
 
 /**
  *

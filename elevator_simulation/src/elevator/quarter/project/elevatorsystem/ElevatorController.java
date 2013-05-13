@@ -1,4 +1,4 @@
-package elevator.quarter.project;
+package elevator.quarter.project.elevatorsystem;
 
 /**
  *

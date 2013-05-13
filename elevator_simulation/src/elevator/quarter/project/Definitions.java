@@ -4,7 +4,7 @@ package elevator.quarter.project;
  *
  * @author Craig & ZGraceffa
  */
-interface Definitions
+public interface Definitions
 {
     enum ElevatorState { GOING_UP, GOING_DOWN, IDLE };
     enum Door { OPEN, CLOSED };

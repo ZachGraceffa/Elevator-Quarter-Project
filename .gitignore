@@ -7,3 +7,4 @@
 
 *.properties
 *.xml
+/elevator_simulation/dist/

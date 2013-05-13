@@ -1,6 +1,8 @@
 package elevator.quarter.project;
 
-import static elevator.quarter.project.Definitions.*;
+import elevator.quarter.project.elevatorsystem.RegElevatorController;
+import elevator.quarter.project.structures.*;
+import elevator.quarter.project.elevatorsystem.InvalidFloorRequestException;
 import java.util.*;
 
 /** 
@@ -8,7 +10,7 @@ import java.util.*;
  *
  * @author Craig and ZGraceffa
  */
-public class ElevatorQuarterProject {
+public class ElevatorQuarterProject implements Definitions{
 
     /** 
      * Driver for elevator simulation mapped to specific implementation 1 instructions.
@@ -36,7 +38,7 @@ public class ElevatorQuarterProject {
         
         try
         {
-            Thread.sleep(5000/SCALE_FACTOR);//allow elevators to initialize
+            //Thread.sleep(5000/SCALE_FACTOR);//allow elevators to initialize
             
             //actual test
             /*

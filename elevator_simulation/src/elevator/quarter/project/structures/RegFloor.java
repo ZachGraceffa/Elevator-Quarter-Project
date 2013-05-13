@@ -1,5 +1,7 @@
-package elevator.quarter.project;
+package elevator.quarter.project.structures;
 
+import elevator.quarter.project.population.Movable;
+import elevator.quarter.project.elevatorsystem.CallBox;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Comparator;
@@ -7,11 +9,6 @@ import java.util.Comparator;
 /**
  * Represents 1 floor in a building.
  * @author ZGraceffa & Craig
- */
-
-/*
- * idea: have groundFloor, RegFloor, and TopFloors!
- * Difference is that top and bottom floors wont have upwaitlist/downwaitlist
  */
 public class RegFloor implements Floor
 {

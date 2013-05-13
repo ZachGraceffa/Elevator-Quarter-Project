@@ -1,6 +1,8 @@
-package elevator.quarter.project;
+package elevator.quarter.project.elevatorsystem;
+
+import elevator.quarter.project.Definitions;
+import elevator.quarter.project.structures.RegBuilding;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  *
