@@ -3,6 +3,8 @@ package elevator.quarter.project;
 import static elevator.quarter.project.Definitions.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -82,7 +84,6 @@ public class RegElevator implements Elevator, Runnable
     {
         System.out.println("Elevator " + elevatorID + " running (On default floor: " + this.getCurrentFloor().getFloorID() +").");
         
-	
 	boolean waitEnded = false;
 	boolean waitException = false;
         
@@ -169,18 +170,22 @@ public class RegElevator implements Elevator, Runnable
                      
                      //increments or decrements the floor based on the previous logic block
                     if(elevatorState == ElevatorState.GOING_DOWN)
-                    {   
-                        //needs a try-catch
+                    {
                         currentFloor = RegBuilding.getInstance().getNextLowerFloor(currentFloor);
+                        
                         if(!this.getCurrentFloor().equals(destinations.get(0)))
+                        {
                             System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + "." + printDestList());
+                        }
                     }
                     else if(elevatorState == ElevatorState.GOING_UP)
                     {
-                        //needs a try-catch
                         currentFloor = RegBuilding.getInstance().getNextHigherFloor(currentFloor);
+                        
                         if(!this.getCurrentFloor().equals(destinations.get(0)))
+                        {
                             System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + "." + printDestList());
+                        }
                     }
                     
                     //if the elevator is at the destination with index 0, it has arrived at a destination
@@ -216,7 +221,7 @@ public class RegElevator implements Elevator, Runnable
      */
     @Override
     public synchronized void addDestination(int floorIn) throws InvalidFloorRequestException
-    {
+    {   
         ///////////////////////////////
 	//error checking
 	//ensure that requested floor is within an acceptable min/max range

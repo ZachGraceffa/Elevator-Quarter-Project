@@ -36,8 +36,10 @@ public class ElevatorQuarterProject {
         
         try
         {
-            //actual test
+            Thread.sleep(5000/SCALE_FACTOR);//allow elevators to initialize
             
+            //actual test
+            /*
             Thread.sleep(2000/SCALE_FACTOR);//allow elevators to initialize
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(11);
             //Thread.sleep(1000);
@@ -46,8 +48,22 @@ public class ElevatorQuarterProject {
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(10);
             Thread.sleep(1000/SCALE_FACTOR);
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(15);
+            */
             
             
+            
+            //RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(11);
+            //RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(14);
+            //Thread.sleep(7000/SCALE_FACTOR);//to show can add dest while moving
+            //RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(13);
+            //RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(15);
+            //Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations
+           
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(5);
+            Thread.sleep(1000/SCALE_FACTOR);
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(2);
+            Thread.sleep(6000);
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(9);
             /*
             Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(10);//for sake of using a new elevator
@@ -85,12 +101,12 @@ public class ElevatorQuarterProject {
         }
         
         //stop all elevator threads
-        /*
+        
         for(int i = 0; i < elevatorThreads.size(); i++)
         {
             RegElevatorController.getInstance().getElevatorWithIndex(i).endRun();
         }
-        */
+        
         
     }//end main
     
