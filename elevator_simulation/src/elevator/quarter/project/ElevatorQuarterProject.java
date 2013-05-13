@@ -62,7 +62,7 @@ public class ElevatorQuarterProject {
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(5);
             Thread.sleep(1000/SCALE_FACTOR);
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(2);
-            Thread.sleep(6000);
+            Thread.sleep(6000/SCALE_FACTOR);
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(9);
             /*
             Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations

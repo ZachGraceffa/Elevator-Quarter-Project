@@ -147,7 +147,10 @@ public class RegElevator implements Elevator, Runnable
                      * the up/down decision must be made here (can only be set if the elevator is currently idle)
                      * this section assumes that the arraylist of destinations has already been sorted, meaning the first destination in the arraylist should be the closest, either up or down.
                      */
-
+                }
+            }
+            synchronized(this)
+            {
                     //determines whether the elevator is going up or down
                     if(elevatorState == ElevatorState.IDLE)
                     {
@@ -167,7 +170,9 @@ public class RegElevator implements Elevator, Runnable
                             }
                         }
                     }
-                     
+            } 
+            synchronized(this)
+            {
                      //increments or decrements the floor based on the previous logic block
                     if(elevatorState == ElevatorState.GOING_DOWN)
                     {
@@ -187,14 +192,15 @@ public class RegElevator implements Elevator, Runnable
                             System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + "." + printDestList());
                         }
                     }
-                    
-                    //if the elevator is at the destination with index 0, it has arrived at a destination
-                    if(currentFloor == destinations.get(0))
-                    {
-                        elevatorArrived();
-                    }
-                }//end else if
-             }//end sync     
+            } 
+            synchronized(this)
+            {
+                //if the elevator is at the destination with index 0, it has arrived at a destination
+                if(currentFloor == destinations.get(0))
+                {
+                      elevatorArrived();
+                }
+            }//end sync     
         }//end while
     }//end run method
 
