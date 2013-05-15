@@ -1,4 +1,5 @@
 package elevator.quarter.project.elevatorsystem;
+import elevator.quarter.project.structures.*;
 
 /**
  *
@@ -15,7 +16,8 @@ public interface Elevator1 {
      * elevator physically does. The controller pulls it up and down based off 
      * of recieved requests.
      */
-    public void doorOpen() throws ElevatorDoorException;
-    public void doorClose() throws ElevatorDoorException;
+    public void doorOpen() throws ElevatorDoorException, InterruptedException;
+    public void doorClose() throws ElevatorDoorException, InterruptedException;
+    public void addDestination(int floorInID);
 
 }

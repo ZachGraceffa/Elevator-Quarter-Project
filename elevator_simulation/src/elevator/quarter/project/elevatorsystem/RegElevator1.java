@@ -36,7 +36,8 @@ public class RegElevator1 implements Elevator1, Definitions, Runnable{
      */
     @Override
     public void run()
-    {
+    {   
+        System.out.println("run elevator");
         running = true;
         while(running)
         {
@@ -74,7 +75,7 @@ public class RegElevator1 implements Elevator1, Definitions, Runnable{
                     this.idle();
                 }
             }
-
+            System.out.println("End while");
         }//end while
     }
     
@@ -83,21 +84,25 @@ public class RegElevator1 implements Elevator1, Definitions, Runnable{
      * all checks.
      * @param floorIn 
      */
-    public synchronized void addDestination(Floor floorIn) //throws InvalidFloorRequestException
+    @Override
+    public synchronized void addDestination(int floorInID) //throws InvalidFloorRequestException
     {
         if(destinations.isEmpty() || elevatorState == ElevatorState.IDLE)
-            destinations.add(floorIn);
+        {
+            destinations.add(RegBuilding.getInstance().getFloorWithIndex(floorInID));
+            System.out.println("Added floor " + floorInID + " added to destination list.");
+        }
         else if(!destinations.isEmpty())
         {
             if(elevatorState == ElevatorState.GOING_UP)
             {
-                if(currentFloor.getFloorID() < floorIn.getFloorID())
-                    destinations.add(floorIn);
+                if(currentFloor.getFloorID() < floorInID)
+                    destinations.add(RegBuilding.getInstance().getFloorWithIndex(floorInID));
             }
             else if(elevatorState == ElevatorState.GOING_DOWN)
             {
-                if(currentFloor.getFloorID() > floorIn.getFloorID())
-                    destinations.add(floorIn);
+                if(currentFloor.getFloorID() > floorInID)
+                    destinations.add(RegBuilding.getInstance().getFloorWithIndex(floorInID));
             }
         }   
     }
