@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Represents one working elevator.
  * @author Zach
  */
-public class RegElevator1 implements Elevator1, Definitions{
+public class RegElevator1 implements Elevator1, Definitions, Runnable{
     
     private ArrayList<Floor> destinations;
     private Floor currentFloor;
@@ -17,6 +17,66 @@ public class RegElevator1 implements Elevator1, Definitions{
     //state variables
     private Door doorState;
     private ElevatorState elevatorState;
+    private boolean running;
+    
+    /**
+     * Default constructor; initializes: elevator state to idle, elevator doors 
+     * to closed, current floor to default floor, and destinations ArrayList.
+     */
+    public RegElevator1()
+    {
+        elevatorState = ElevatorState.IDLE;
+        doorState = Door.CLOSED;
+        currentFloor = RegBuilding.getInstance().getFloorWithIndex(DEFAULT_FLOOR);
+        destinations = new ArrayList<Floor>();
+    }
+    
+    /**
+     * Constantly running method to delegate elevator behavior.
+     */
+    @Override
+    public void run()
+    {
+        running = true;
+        while(running)
+        {
+            synchronized(this)
+            {
+                if(!destinations.isEmpty())
+                {
+                    if(destinations.get(0).getFloorID() > currentFloor.getFloorID())
+                    {
+                        this.goUp();
+                    }
+                    else if(destinations.get(0).getFloorID() < currentFloor.getFloorID())
+                    {
+                        this.goDown();
+                    }
+                        
+                }      
+            }
+            
+            synchronized(this)
+            {
+                if(!destinations.isEmpty())
+                {
+                    if(destinations.get(0) == currentFloor)
+                    {
+                        this.arrived();
+                    }
+                }
+            }
+
+            synchronized(this)
+            {
+                if(destinations.isEmpty())
+                {
+                    this.idle();
+                }
+            }
+
+        }//end while
+    }
     
     /**
      * Adds a floor to this elevators destination list as long as it passes through
@@ -42,14 +102,14 @@ public class RegElevator1 implements Elevator1, Definitions{
         }   
     }
     
-    private void arrived() throws InterruptedException
+    private void arrived()
     {
         elevatorState = ElevatorState.STOPPED;
         try
         {
             
             doorOpen();
-            Thread.currentThread().sleep(TIME_BETWEEN_OPEN_CLOSE/SCALE_FACTOR);
+            Thread.sleep(TIME_BETWEEN_OPEN_CLOSE/SCALE_FACTOR);
             doorClose();
             synchronized(this)
             {
@@ -60,6 +120,11 @@ public class RegElevator1 implements Elevator1, Definitions{
         {
             e.printStackTrace();
         }
+        catch(InterruptedException f)
+        {
+            f.printStackTrace();
+        }
+            
 
         
     }
@@ -68,12 +133,21 @@ public class RegElevator1 implements Elevator1, Definitions{
      * Sleeps for 1 second and then increments elevator floor by 1, checks to make sure not at top floor.
      * @throws InterruptedException 
      */
-    private void goUp() throws InterruptedException
+    private void goUp()
     {
         if(currentFloor.getFloorID() < NUM_OF_FLOORS)
-        {
-            Thread.currentThread().sleep(TIME_PER_FLOOR/SCALE_FACTOR);
-            currentFloor = RegBuilding.getInstance().getNextHigherFloor(currentFloor);
+        {   
+            elevatorState = ElevatorState.GOING_UP;
+            try
+            {
+                Thread.currentThread().sleep(TIME_PER_FLOOR/SCALE_FACTOR);
+                currentFloor = RegBuilding.getInstance().getNextHigherFloor(currentFloor);
+            }
+            catch(InterruptedException e)
+            {
+                System.err.println("going up exception");
+                e.printStackTrace();
+            }
         }
     }
     
@@ -81,12 +155,21 @@ public class RegElevator1 implements Elevator1, Definitions{
      * Sleeps for 1 second and then decrements elevator floor by 1, checks to make sure not at ground level.
      * @throws InterruptedException 
      */
-    private void goDown() throws InterruptedException
+    private void goDown()
     {
         if(currentFloor.getFloorID() > 0)
         {
-            Thread.currentThread().sleep(TIME_PER_FLOOR/SCALE_FACTOR);
-            currentFloor = RegBuilding.getInstance().getNextLowerFloor(currentFloor);
+            elevatorState = ElevatorState.GOING_DOWN;
+            try
+            {
+                Thread.sleep(TIME_PER_FLOOR/SCALE_FACTOR);
+                currentFloor = RegBuilding.getInstance().getNextLowerFloor(currentFloor);
+            }
+            catch(InterruptedException e)
+            {
+                System.err.println("going down exception");
+                e.printStackTrace();
+            }
         }
     }
     

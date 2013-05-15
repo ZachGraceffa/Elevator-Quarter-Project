@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class RegElevatorController implements ElevatorController, Definitions
 {
-    private ArrayList<Elevator> elevators;
+    private ArrayList<Elevator1> elevators;
     private static RegElevatorController instance = null;
     
     private int elevatorCount;
@@ -20,7 +20,7 @@ public class RegElevatorController implements ElevatorController, Definitions
      */
     private RegElevatorController()
     {
-        elevators = new ArrayList<Elevator>();
+        elevators = new ArrayList<Elevator1>();
     }
 
     /**
@@ -32,15 +32,15 @@ public class RegElevatorController implements ElevatorController, Definitions
     {
         for(int i = 0; i < numOfElevatorsIn; i++)
         {
-            elevators.add(new RegElevator());
+            elevators.add(new RegElevator1());
         }
 
         elevatorCount = numOfElevatorsIn;
 
-        for(int i = 0; i < elevators.size(); i++)
-        {
-            elevators.get(i).initiallySetCurrentFloor();
-        }
+        //for(int i = 0; i < elevators.size(); i++)
+        //{
+          //  elevators.get(i).initiallySetCurrentFloor();
+        //}
     }
     
     /**
@@ -79,7 +79,7 @@ public class RegElevatorController implements ElevatorController, Definitions
      * @return 
      */
     @Override
-    public Elevator getElevatorWithIndex(int indexIn) throws IndexOutOfBoundsException
+    public Elevator1 getElevatorWithIndex(int indexIn) throws IndexOutOfBoundsException
     {
         if( indexIn >= 0 && indexIn < elevators.size())
             return elevators.get(indexIn);
@@ -92,7 +92,7 @@ public class RegElevatorController implements ElevatorController, Definitions
      * @param floorIn
      * @param elevatorIn 
      */
-    @Override
+    /*@Override
     public void request(int elevatorIn, int floorIn)
     {
         try{
@@ -103,5 +103,5 @@ public class RegElevatorController implements ElevatorController, Definitions
         {
             ex.printStackTrace();
         }
-    }
+    }*/
 }

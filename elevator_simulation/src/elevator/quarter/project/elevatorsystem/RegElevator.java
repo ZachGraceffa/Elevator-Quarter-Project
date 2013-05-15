@@ -1,6 +1,6 @@
 package elevator.quarter.project.elevatorsystem;
 
-//import elevator.quarter.project.structures.*;
+import elevator.quarter.project.structures.*;
 import elevator.quarter.project.population.Movable;
 import elevator.quarter.project.Definitions;
 import java.util.ArrayList;
@@ -303,7 +303,7 @@ public class RegElevator implements Elevator, Runnable, Definitions
             //open doors for 1 second
             try
             {
-                Thread.sleep(DOOR_OPEN_TIME/SCALE_FACTOR);
+                Thread.sleep(TIME_BETWEEN_OPEN_CLOSE/SCALE_FACTOR);
             }
             catch (InterruptedException ex)
             {

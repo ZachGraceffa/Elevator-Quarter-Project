@@ -15,6 +15,7 @@ public interface Elevator1 {
      * elevator physically does. The controller pulls it up and down based off 
      * of recieved requests.
      */
-    public void doorOpen() throws InterruptedException, ElevatorDoorException;
-    public void doorClose() throws InterruptedException, ElevatorDoorException;
+    public void doorOpen() throws ElevatorDoorException;
+    public void doorClose() throws ElevatorDoorException;
+
 }

@@ -35,7 +35,7 @@ public class ElevatorQuarterProject implements Definitions{
             elevatorThreads.get(i).start();
         }
         
-        try
+        /*try
         {
             //Thread.sleep(5000/SCALE_FACTOR);//allow elevators to initialize
             
@@ -60,11 +60,11 @@ public class ElevatorQuarterProject implements Definitions{
             //RegElevatorController.getInstance().getElevatorWithIndex(1).addDestination(15);
             //Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations
            
-            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(5);
+            /*RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(5);
             Thread.sleep(1000/SCALE_FACTOR);
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(2);
             Thread.sleep(6000/SCALE_FACTOR);
-            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(9);
+            RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(9);*/
             
             /*
             Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations
@@ -94,19 +94,20 @@ public class ElevatorQuarterProject implements Definitions{
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(8);//to demonstrate destination list sorting
             Thread.sleep(40000/SCALE_FACTOR); //allow all elevators to return to default floors
             */
-            
-            
+           /* 
+            RegElevatorController.getInstance().getElevatorWithIndex(0).
+            Thread.sleep(1000/SCALE_FACTOR);
         }
         catch(InterruptedException ex)
         {
             ex.printStackTrace();
-        }
+        }*/
         
         //stop all elevator threads
         
         for(int i = 0; i < elevatorThreads.size(); i++)
         {
-            RegElevatorController.getInstance().getElevatorWithIndex(i).endRun();
+            //RegElevatorController.getInstance().getElevatorWithIndex(i).endRun();
         }
         
         
