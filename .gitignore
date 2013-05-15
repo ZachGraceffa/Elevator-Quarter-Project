@@ -6,5 +6,9 @@
 *.ear
 
 *.properties
+<<<<<<< HEAD
 *.xml
 /elevator_simulation/dist/
+=======
+elevator_simulation/nbproject/private/private.properties
+>>>>>>> gitignore
