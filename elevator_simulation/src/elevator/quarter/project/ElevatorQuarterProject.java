@@ -19,7 +19,6 @@ public class ElevatorQuarterProject implements Definitions{
     public static void main(String[] args) throws InvalidFloorRequestException
     {
         //initialize the building with a given number of elevators, floors, and movables.
-        RegBuilding.getInstance();
         RegBuilding.getInstance().initialize(NUM_OF_ELEVATORS, NUM_OF_FLOORS, NUM_OF_MOVABLES);
         
         ArrayList<Thread> elevatorThreads = new ArrayList<Thread>();
@@ -66,6 +65,7 @@ public class ElevatorQuarterProject implements Definitions{
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(2);
             Thread.sleep(6000/SCALE_FACTOR);
             RegElevatorController.getInstance().getElevatorWithIndex(0).addDestination(9);
+            
             /*
             Thread.sleep(15000/SCALE_FACTOR);//to give all elevators a chance to reach destinations
             RegElevatorController.getInstance().getElevatorWithIndex(2).addDestination(10);//for sake of using a new elevator

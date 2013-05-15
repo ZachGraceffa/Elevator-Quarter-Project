@@ -1,6 +1,6 @@
 package elevator.quarter.project.elevatorsystem;
 
-import elevator.quarter.project.structures.*;
+//import elevator.quarter.project.structures.*;
 import elevator.quarter.project.population.Movable;
 import elevator.quarter.project.Definitions;
 import java.util.ArrayList;
@@ -152,7 +152,7 @@ public class RegElevator implements Elevator, Runnable, Definitions
             synchronized(this)
             {
                     //determines whether the elevator is going up or down
-                    if(elevatorState == ElevatorState.IDLE)
+                    if(elevatorState == ElevatorState.IDLE && !destinations.isEmpty())
                     {
                         if(this.getCurrentFloor().getFloorID() != destinations.get(0).getFloorID())
                         {
@@ -170,7 +170,9 @@ public class RegElevator implements Elevator, Runnable, Definitions
                             }
                         }
                     }
-            } 
+            }
+            synchronized(this)
+            {
                      //increments or decrements the floor based on the previous logic block
                     if(elevatorState == ElevatorState.GOING_DOWN)
                     {
@@ -190,6 +192,7 @@ public class RegElevator implements Elevator, Runnable, Definitions
                             System.out.println("Elevator " + elevatorID + " passing Floor " + currentFloor.getFloorID() + "." + printDestList());
                         }
                     }
+            }
             synchronized(this)
             {
                 //if the elevator is at the destination with index 0, it has arrived at a destination
@@ -279,16 +282,11 @@ public class RegElevator implements Elevator, Runnable, Definitions
      */
     private void elevatorArrived()
     {
+        elevatorState = ElevatorState.IDLE;
         System.out.println("Elevator " + elevatorID + " arrived at Floor " + currentFloor.getFloorID() + ".");
         destinations.remove(0);//removes destination just arrived at
         
-        doorOpen();
-        
-        if(destinations.isEmpty())
-        {
-            elevatorState = ElevatorState.IDLE;
-        }
-        
+        doorOpen();   
     }
     
     /**

@@ -6,7 +6,7 @@ package elevator.quarter.project;
  */
 public interface Definitions
 {
-    enum ElevatorState { GOING_UP, GOING_DOWN, IDLE };
+    enum ElevatorState { GOING_UP, STOPPED, GOING_DOWN, IDLE };
     enum Door { OPEN, CLOSED };
     
     int NUM_OF_FLOORS = 15;
@@ -15,7 +15,8 @@ public interface Definitions
     
     int DEFAULT_FLOOR = 1;
     int TIME_PER_FLOOR = 1000;
-    int SCALE_FACTOR = 1;
-    int DOOR_OPEN_TIME = 1000;
+    int SCALE_FACTOR = 100;
+    int DOOR_OPEN_CLOSE_TIME = 250;
+    int TIME_BETWEEN_OPEN_CLOSE = 1000;
     int IDLE_WAIT_TIME = 10000;
 }
